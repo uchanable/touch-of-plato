@@ -1,23 +1,22 @@
-"""Pairwise alignment: TVL standalone tactile encoder x {11 other encoders}.
+"""Pairwise alignment: AnyTouch x {10 other Table 1 encoders}.
 
-Headline test for "observe (frozen) vs enforce (cross-modal trained)" —
-the 12th encoder (TVL ViT-Base, trained on TVL with contrastive
-alignment to CLIP latent space) goes against all 11 baseline encoders
-(10 original + AnyTouch).
+Headline robustness check for §5.7 limitation (ii) of the paper: does the
+existing tactile-encoder result reproduce when we swap in AnyTouch (a
+sensor-conditioned tactile foundation model with a different backbone)?
 
 Inputs:
-    --features-dir : directory with `tvl_vitb.npy` AND the 11 partners
-                     (DINOv2 S/B/L, CLIP-L vision/text, SigLIP-B
-                      vision/text, mpnet, Sparsh-DINO, Sparsh-IJEPA,
-                      AnyTouch).
+    --features-dir : directory with all encoder .npy files (each (N, d_i)),
+                     including anytouch.npy AND the 9 baseline encoders
+                     (DINOv2 small/base/large, CLIP-L vision/text,
+                      SigLIP-Base vision/text, mpnet, Sparsh-DINO,
+                      Sparsh-IJEPA, TVL-ViT-B).
     --output-dir   : where results.csv / summary.txt / meta.json land.
 
-Computes 4 metrics for each tvl_vitb x other pair (11 pairs):
+Computes 4 metrics for each AnyTouch x other pair (10 pairs):
     mutual_knn, debiased_cka, null_knn_z (B=100 perms), unbiased_cka.
 
-Mirrors `src/experiments/anytouch_pairwise.py` exactly except for the
-default anchor and partner set (so paper consistency vs AnyTouch run is
-preserved — same metric stack, same B=100, same k=10).
+This mirrors `src/experiments/alignment_matrix.py::compute_pairwise_metrics`
+but restricted to pairs that involve AnyTouch.
 """
 from __future__ import annotations
 import argparse
@@ -49,7 +48,6 @@ _DEFAULT_PARTNERS = [
     "mpnet",
     "sparsh_dino_base",
     "sparsh_ijepa_base",
-    "anytouch",
 ]
 
 
@@ -57,7 +55,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--features-dir", type=str, required=True)
     parser.add_argument("--output-dir", type=str, required=True)
-    parser.add_argument("--anchor", type=str, default="tvl_vitb")
+    parser.add_argument("--anchor", type=str, default="anytouch")
     parser.add_argument("--partners", type=str, nargs="+", default=_DEFAULT_PARTNERS)
     parser.add_argument("--k", type=int, default=10)
     parser.add_argument("--n-perms", type=int, default=100)
@@ -75,6 +73,7 @@ def main():
     N = anchor.shape[0]
     print(f"[pairwise] anchor={args.anchor} shape={anchor.shape}")
 
+    # Load partners; drop any that are missing on disk (warn loudly).
     partner_feats: dict[str, np.ndarray] = {}
     for name in args.partners:
         p = feat_dir / f"{name}.npy"
@@ -131,6 +130,7 @@ def main():
         w.writerows(records)
     print(f"[pairwise] wrote {csv_path}")
 
+    # Build a compact summary keyed by partner (one row per partner).
     summary_lines = ["partner\tmutual_knn\tdebiased_cka\tnull_knn_z\tunbiased_cka"]
     by_partner: dict[str, dict[str, float]] = {}
     for r in records:

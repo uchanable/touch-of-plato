@@ -56,7 +56,9 @@ src/
   alignment_metrics/   # M1 mutual-kNN, M2 dCKA, M3 null-cal z, M4 uCKA
   encoders/            # 12 frozen encoder loaders (Table 1)
   datasets/            # TVL + TacQuad
-  experiments/         # Per-figure runners (fig1/fig2/fig4/wit/tacquad/...)
+  experiments/         # Per-experiment runners (alignment_matrix, scale_curve, layerwise_probe,
+                       #   attribute_alignment, tacquad_replication, wit_anchor,
+                       #   sparsh_mode_sensitivity, encoders_table, metric_consistency)
 scripts/
   compute_ground_truth.py
   procrustes_m5.py

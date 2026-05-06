@@ -14,12 +14,12 @@ emits ``data/results/ground_truth.json`` with:
 
 Inputs (under ``data/results/`` relative to repo root):
 
-  fig1_perpair_base.csv          # 45 pairs (10-encoder baseline) x 4 metrics
-  fig1_perpair_anytouch.csv      # 10 pairs (AnyTouch x existing) x 4 metrics
+  alignment_matrix_base.csv          # 45 pairs (10-encoder baseline) x 4 metrics
+  alignment_matrix_anytouch.csv      # 10 pairs (AnyTouch x existing) x 4 metrics
                                  # CSV holds 6 columns; we keep the 4 standard
-  fig1_perpair_tvl_vitb.csv      # 11 pairs (TVL-ViT-B x existing) x 4 metrics
+  alignment_matrix_tvl_vitb.csv      # 11 pairs (TVL-ViT-B x existing) x 4 metrics
                                  # CSV holds 6 columns; we keep the 4 standard
-  fig1_procrustes_m5.csv         # 66 pairs x 1 metric (M5)
+  alignment_matrix_procrustes_m5.csv         # 66 pairs x 1 metric (M5)
 
 After merging, total = 66 pairs x 5 metrics = 330 rows. Each block
 aggregation is exposed as the paper-quoted statistic.
@@ -86,10 +86,10 @@ def read_pairs_csv(path: Path) -> list[dict]:
 
 def main() -> int:
     inputs = [
-        RESULTS / "fig1_perpair_base.csv",
-        RESULTS / "fig1_perpair_anytouch.csv",
-        RESULTS / "fig1_perpair_tvl_vitb.csv",
-        RESULTS / "fig1_procrustes_m5.csv",
+        RESULTS / "alignment_matrix_base.csv",
+        RESULTS / "alignment_matrix_anytouch.csv",
+        RESULTS / "alignment_matrix_tvl_vitb.csv",
+        RESULTS / "alignment_matrix_procrustes_m5.csv",
     ]
     for p in inputs:
         if not p.exists():

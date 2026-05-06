@@ -7,7 +7,7 @@ vision-touch-language dataset (TacQuad / AnyTouch ICLR 2025). If T-V mutual-kNN
 remains substantially > V-L mutual-kNN, the gap cannot be a TVL-specific
 artifact (caption brevity, narrow surface domain, SSVTP-only annotation, etc.).
 
-Protocol (same as fig1_alignment_matrix.py — only the dataset differs):
+Protocol (same as alignment_matrix.py — only the dataset differs):
     1. Load 10 encoders (Sparsh-{DINO,IJEPA}, DINOv2 {S,B,L}, CLIP-L {V,T},
        SigLIP-Base {V,T}, mpnet).
     2. Build a TacQuadDataset (default: indoor + DIGIT sensor).
@@ -16,13 +16,13 @@ Protocol (same as fig1_alignment_matrix.py — only the dataset differs):
     5. Write results.csv, summary.txt (T-V vs V-L breakdown), meta.json.
 
 Usage (smoke test, ~100 samples):
-    python -m src.experiments.fig1_tacquad \\
+    python -m src.experiments.tacquad_replication \\
         --subset indoor --sensor digit --max-samples 100 \\
-        --output-dir experiments/fig1_tacquad_smoke
+        --output-dir experiments/tacquad_replication_smoke
 
 Usage (full indoor run):
-    python -m src.experiments.fig1_tacquad \\
-        --subset indoor --sensor digit --output-dir experiments/fig1_tacquad
+    python -m src.experiments.tacquad_replication \\
+        --subset indoor --sensor digit --output-dir experiments/tacquad_replication_full
 """
 from __future__ import annotations
 import argparse
@@ -52,7 +52,7 @@ _VIEW_FOR_MODALITY = {
     "language": "text",
 }
 
-# Encoder modality groupings (mirrors fig1_alignment_matrix grouping).
+# Encoder modality groupings (mirrors alignment_matrix grouping).
 _T_ENCODERS = {"sparsh_dino_base", "sparsh_ijepa_base"}
 _V_ENCODERS = {
     "clip_l_vision", "siglip_base_vision",
@@ -209,7 +209,7 @@ def main() -> None:
     ap.add_argument("--per-object-max", type=int, default=None)
     ap.add_argument("--k", type=int, default=10)
     ap.add_argument("--n-perms", type=int, default=100)
-    ap.add_argument("--output-dir", default="experiments/fig1_tacquad")
+    ap.add_argument("--output-dir", default="experiments/tacquad_replication_full")
     ap.add_argument("--encoders", nargs="+", default=None)
     args = ap.parse_args()
 
@@ -218,9 +218,9 @@ def main() -> None:
     feat_dir.mkdir(parents=True, exist_ok=True)
 
     chosen = args.encoders or list_encoders()
-    print(f"[fig1_tacquad] encoders: {chosen}")
+    print(f"[tacquad_replication] encoders: {chosen}")
     print(
-        f"[fig1_tacquad] TacQuad subset={args.subset} sensor={args.sensor} "
+        f"[tacquad_replication] TacQuad subset={args.subset} sensor={args.sensor} "
         f"max_samples={args.max_samples} per_object_max={args.per_object_max}"
     )
 
@@ -232,7 +232,7 @@ def main() -> None:
         per_object_max=args.per_object_max,
     )
     N = len(dataset)
-    print(f"[fig1_tacquad] dataset length: {N}")
+    print(f"[tacquad_replication] dataset length: {N}")
     if N == 0:
         raise RuntimeError(
             "Empty dataset — check root, subset, sensor, or contact CSV ranges."
@@ -245,14 +245,14 @@ def main() -> None:
             cached = np.load(feat_cache)
             if cached.shape[0] != N:
                 print(
-                    f"[fig1_tacquad] cache size mismatch for {name} "
+                    f"[tacquad_replication] cache size mismatch for {name} "
                     f"(cached={cached.shape[0]}, expected={N}); re-extracting"
                 )
             else:
-                print(f"[fig1_tacquad] load cached {name}")
+                print(f"[tacquad_replication] load cached {name}")
                 features[name] = cached
                 continue
-        print(f"[fig1_tacquad] extract {name}")
+        print(f"[tacquad_replication] extract {name}")
         enc = get_encoder(name)
         feats = extract_features(enc, dataset)
         np.save(feat_cache, feats)
@@ -264,7 +264,7 @@ def main() -> None:
 
     records = compute_pairwise_metrics(features, k=args.k, n_perms=args.n_perms)
     write_results_csv(records, out_dir / "results.csv")
-    print(f"[fig1_tacquad] wrote {len(records)} records to {out_dir / 'results.csv'}")
+    print(f"[tacquad_replication] wrote {len(records)} records to {out_dir / 'results.csv'}")
 
     meta = {
         "N": N,

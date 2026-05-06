@@ -7,7 +7,7 @@ frames ≈ 80 ms).
 
 Protocol: see paper Appendix (Sparsh Mode A vs B sensitivity).
 
-Outputs (under --output-dir, default experiments/sparsh_sensitivity):
+Outputs (under --output-dir, default experiments/sparsh_mode_sensitivity):
     pairs_index.csv      — sample_id, run_dir, t_frame, t5_frame, vision_frame, frame_idx
     features/
         sparsh_dino_base.mode_a.npy   (N, 768)
@@ -26,9 +26,9 @@ Resumability:
     - cosine_per_sample.csv: rewritten when both Mode A/B features exist for a Sparsh variant
 
 Usage:
-    python -m src.experiments.sparsh_sensitivity \
+    python -m src.experiments.sparsh_mode_sensitivity \
         --tvl-root data/tvl \
-        --output-dir experiments/sparsh_sensitivity \
+        --output-dir experiments/sparsh_mode_sensitivity \
         --n-samples 500 --k 5
 """
 from __future__ import annotations
@@ -234,7 +234,7 @@ def main():
     ap.add_argument("--tvl-root", type=str,
                     default=os.environ.get("TVL_ROOT", "data/tvl"))
     ap.add_argument("--output-dir", type=str,
-                    default="experiments/sparsh_sensitivity")
+                    default="experiments/sparsh_mode_sensitivity")
     ap.add_argument("--n-samples", type=int, default=500)
     ap.add_argument("--k", type=int, default=5)
     ap.add_argument("--knn-k", type=int, default=10)

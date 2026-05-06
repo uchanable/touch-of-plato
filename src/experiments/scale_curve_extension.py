@@ -1,6 +1,6 @@
 """Fig. 2 (Scale curve) extension — 14 new vision×touch encoder combos.
 
-Existing fig2_full (Sparsh-DINO/IJEPA × DINOv2-S/B/L = 6 combos × 4 fractions
+Existing scale_curve_full (Sparsh-DINO/IJEPA × DINOv2-S/B/L = 6 combos × 4 fractions
 × 3 metrics = 72 rows) covers only the original encoder pool. This extension
 adds 14 new combos to cover every vision×tactile pair the 12-encoder
 PlatonicTouch pool can form:
@@ -12,23 +12,23 @@ PlatonicTouch pool can form:
 
 = 14 combos × 4 fractions × 2 metrics (m-kNN + dCKA) = 112 cells.
 
-Output schema matches existing fig2_full exactly:
+Output schema matches existing scale_curve_full exactly:
     fraction, n_samples, vision_encoder, touch_encoder, metric, value
 
 Sampling: fig2 uses ``TVLDataset(max_samples=n)`` which is the deterministic
 *first n entries* (not random with seed). So we just slice cached full
 features ``feats[:n_eff]`` — gives bitwise-identical fraction subsets to
-the original fig2_full.
+the original scale_curve_full.
 
 Feature extraction is NOT needed: every encoder's full-N feature matrix is
-already cached from fig1_full (10 encoders) + anytouch_full + tvl_vitb_full.
+already cached from alignment_matrix_full (10 encoders) + anytouch_full + tvl_vitb_full.
 
 Resumable: every cell (combo × fraction × metric) is appended to the CSV
 as soon as it's computed, with line-buffered flush. On restart, the script
 loads the existing CSV, builds a done-set, and skips already-computed cells.
 
 Spot-check: before running new combos, the script can re-compute one cell
-that's already in fig2_full (Sparsh-DINO × DINOv2-Small × fraction=0.10,
+that's already in scale_curve_full (Sparsh-DINO × DINOv2-Small × fraction=0.10,
 expected m-kNN = 0.0410) to verify slicing matches the original sampling.
 """
 from __future__ import annotations
@@ -63,14 +63,14 @@ FIELDNAMES = ["fraction", "n_samples", "vision_encoder", "touch_encoder",
               "metric", "value"]
 
 
-def load_feature(name: str, fig1_dir: Path, anytouch_path: Path,
+def load_feature(name: str, alignment_matrix_dir: Path, anytouch_path: Path,
                  tvl_vitb_path: Path) -> np.ndarray:
     """Load full N=43,502 features for an encoder from the appropriate cache."""
     if name == "anytouch":
         return np.load(anytouch_path)
     if name == "tvl_vitb":
         return np.load(tvl_vitb_path)
-    p = fig1_dir / f"{name}.npy"
+    p = alignment_matrix_dir / f"{name}.npy"
     if not p.exists():
         raise FileNotFoundError(f"missing cached feature: {p}")
     return np.load(p)
@@ -78,8 +78,8 @@ def load_feature(name: str, fig1_dir: Path, anytouch_path: Path,
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--fig1-features-dir", default=str(
-        Path("experiments/fig1_full/features")))
+    ap.add_argument("--alignment-matrix-features-dir", default=str(
+        Path("experiments/alignment_matrix_full/features")))
     ap.add_argument("--anytouch-features", default=str(
         Path("experiments/anytouch_full/features/anytouch.npy")))
     ap.add_argument("--tvl-vitb-features", default=str(
@@ -87,10 +87,10 @@ def main():
     ap.add_argument("--output-dir", required=True)
     ap.add_argument("--k", type=int, default=10)
     ap.add_argument("--spot-check", action="store_true",
-                    help="Re-compute one cell from fig2_full and assert match (≈0.0410).")
+                    help="Re-compute one cell from scale_curve_full and assert match (≈0.0410).")
     args = ap.parse_args()
 
-    fig1_dir = Path(args.fig1_features_dir)
+    alignment_matrix_dir = Path(args.alignment_matrix_features_dir)
     anytouch_path = Path(args.anytouch_features)
     tvl_vitb_path = Path(args.tvl_vitb_features)
     out_dir = Path(args.output_dir)
@@ -101,7 +101,7 @@ def main():
     print(f"[fig2-ext] loading features ...")
     feats: dict[str, np.ndarray] = {}
     for name in VISION + TOUCH:
-        feats[name] = load_feature(name, fig1_dir, anytouch_path, tvl_vitb_path)
+        feats[name] = load_feature(name, alignment_matrix_dir, anytouch_path, tvl_vitb_path)
         print(f"  {name:20s} shape={feats[name].shape}")
     N_full = feats[VISION[0]].shape[0]
     for name, arr in feats.items():
@@ -109,7 +109,7 @@ def main():
             raise ValueError(f"{name} N={arr.shape[0]} != {N_full}")
     print(f"[fig2-ext] N_full={N_full}")
 
-    # ---- Optional spot-check: reproduce one fig2_full cell ----
+    # ---- Optional spot-check: reproduce one scale_curve_full cell ----
     if args.spot_check:
         n10 = int(round(N_full * 0.10))
         z_v = torch.from_numpy(feats["dinov2_small"][:n10])

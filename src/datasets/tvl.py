@@ -158,7 +158,7 @@ class TVLDataset(Dataset):
     def _iter_hct(self, hct_root: Path) -> list[TVLItem]:
         """Parse HCT data{1,2,3}/{train,test}.csv into TVLItem list.
 
-        Confirmed columns (2026-04-14): `url`, `tactile`, `tactile_background`, `caption`.
+        Confirmed columns: `url`, `tactile`, `tactile_background`, `caption`.
         """
         items: list[TVLItem] = []
         for data_dir in sorted(hct_root.glob("data*")):

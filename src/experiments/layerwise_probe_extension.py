@@ -12,13 +12,13 @@ New pair set (15 pair × 4 quartile = 60 cell):
     AnyTouch × {Sparsh-DINO, Sparsh-IJEPA, DINOv2-S/B/L, CLIP-L_v, SigLIP_v}  = 7
     tvl_vitb × {Sparsh-DINO, Sparsh-IJEPA, AnyTouch, DINOv2-S/B/L, CLIP-L_v, SigLIP_v} = 8
 
-Patch-mean convention (matches fig1_layerwise.py): drop CLS-like prefix tokens,
+Patch-mean convention (matches layerwise_probe.py): drop CLS-like prefix tokens,
 mean over patch tokens.
     AnyTouch: seq is [CLS(1), sensor(5), patch(256)] → drop first 6 tokens.
     tvl_vitb: seq is [CLS(1), patch(196)] → drop first 1 token.
 
 Reuses cached layer-wise features for the 8 baseline encoders from
-``experiments/fig1_layerwise_optionA/features/``.
+``experiments/layerwise_probe_full/features/``.
 
 Output:
     <output-dir>/features/{anytouch.L6/12/18/24.npy, tvl_vitb.L3/6/9/12.npy}
@@ -27,9 +27,9 @@ Output:
     <output-dir>/meta.json
 
 Usage:
-    python -m src.experiments.fig1_layerwise_extension \
-        --baseline-features-dir experiments/fig1_layerwise_optionA/features \
-        --output-dir experiments/fig1_layerwise_optionA_extended \
+    python -m src.experiments.layerwise_probe_extension \
+        --baseline-features-dir experiments/layerwise_probe_full/features \
+        --output-dir experiments/layerwise_probe_extension_full \
         --n-perms 100
 """
 from __future__ import annotations
@@ -50,7 +50,7 @@ from src.datasets.tvl import TVLDataset
 from src.alignment_metrics import mutual_knn_alignment, null_calibrated_alignment
 
 
-# ===== Encoder layout (must match fig1_layerwise.py) ======================
+# ===== Encoder layout (must match layerwise_probe.py) ======================
 ENCODER_BLOCKS = {
     "sparsh_dino_base":   12,
     "sparsh_ijepa_base":  12,

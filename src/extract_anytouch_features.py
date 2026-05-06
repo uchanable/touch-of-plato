@@ -1,7 +1,7 @@
 """Extract AnyTouch features over the TVL dataset.
 
 Mirrors the per-encoder feature loop in
-`src/experiments/fig1_alignment_matrix.py::extract_features`, but as a
+`src/experiments/alignment_matrix.py::extract_features`, but as a
 standalone module so the heavy CLIPVisionTransformer load happens once
 and the resulting (N, 1024) matrix is cached as a single .npy.
 

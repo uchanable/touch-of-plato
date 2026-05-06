@@ -20,14 +20,14 @@ PRH prediction: for each (vision_size, touch_encoder) curve,
     vision encoder's capacity (S < B < L).
 
 Usage:
-    python -m src.experiments.fig2_scale_curve \
-        --output-dir experiments/fig2_full \
-        --figure-path paper/figures/fig2_scale_curve.pdf
+    python -m src.experiments.scale_curve \
+        --output-dir experiments/scale_curve_full \
+        --figure-path paper/figures/scale_curve.pdf
 
 Output:
-    - experiments/fig2_full/results.csv
-    - experiments/fig2_full/features/{encoder_name}_frac{f}.npy
-    - paper/figures/fig2_scale_curve.pdf  (2 subplots: Sparsh-DINO, Sparsh-IJEPA)
+    - experiments/scale_curve_full/results.csv
+    - experiments/scale_curve_full/features/{encoder_name}_frac{f}.npy
+    - paper/figures/scale_curve.pdf  (2 subplots: Sparsh-DINO, Sparsh-IJEPA)
 """
 from __future__ import annotations
 import argparse
@@ -46,7 +46,7 @@ from src.alignment_metrics import (
     debiased_cka_alignment,
     null_calibrated_alignment,
 )
-from src.experiments.fig1_alignment_matrix import extract_features
+from src.experiments.alignment_matrix import extract_features
 
 
 VISION_SIZES = ["dinov2_small", "dinov2_base", "dinov2_large"]
@@ -86,9 +86,9 @@ def main():
     parser.add_argument("--subset", type=str, choices=["ssvtp", "hct", "all"], default="all")
     parser.add_argument("--k", type=int, default=10)
     parser.add_argument("--n-perms", type=int, default=100)
-    parser.add_argument("--output-dir", type=str, default="experiments/fig2_full")
+    parser.add_argument("--output-dir", type=str, default="experiments/scale_curve_full")
     parser.add_argument("--figure-path", type=str,
-                        default="paper/figures/fig2_scale_curve.pdf")
+                        default="paper/figures/scale_curve.pdf")
     args = parser.parse_args()
 
     out_dir = Path(args.output_dir)

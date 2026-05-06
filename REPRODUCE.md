@@ -84,24 +84,24 @@ runner uses all 12 encoders in the registry (which would produce a
 66-pair CSV, not the 45-pair baseline expected by `compute_ground_truth.py`).
 
 ```bash
-python -m src.experiments.fig1_alignment_matrix \
+python -m src.experiments.alignment_matrix \
     --subset all \
     --k 10 --n-perms 100 \
-    --output-dir experiments/fig1_full \
+    --output-dir experiments/alignment_matrix_full \
     --encoders dinov2_small dinov2_base dinov2_large \
                clip_l_vision clip_l_text \
                siglip_base_vision siglip_base_text mpnet \
                sparsh_dino_base sparsh_ijepa_base
 ```
 
-Outputs `experiments/fig1_full/results.csv` (= `data/results/fig1_perpair_base.csv`)
+Outputs `experiments/alignment_matrix_full/results.csv` (= `data/results/alignment_matrix_base.csv`)
 plus the encoder feature `.npy`s under
-`experiments/fig1_full/features/`. Re-runs are cheap once the features
+`experiments/alignment_matrix_full/features/`. Re-runs are cheap once the features
 are cached.
 
 ### 3b. AnyTouch additions (10 new pairs × 4 metrics)
 
-`anytouch_pairwise.py` does NOT extract features itself — it expects
+`alignment_matrix_anytouch.py` does NOT extract features itself — it expects
 each encoder's `(N, d)` matrix to already be cached as
 `experiments/anytouch_full/features/<id>.npy`. Run the extraction step
 first, which writes both the AnyTouch feature `.npy` and copies of the
@@ -115,13 +115,13 @@ python -m src.extract_anytouch_features \
     --output-dir experiments/anytouch_full
 
 # Then compute the 10 new pairs (AnyTouch × the 10 baseline encoders):
-python -m src.experiments.anytouch_pairwise \
+python -m src.experiments.alignment_matrix_anytouch \
     --features-dir experiments/anytouch_full/features \
     --output-dir experiments/anytouch_full
 ```
 
 Outputs `experiments/anytouch_full/results.csv`
-(= `data/results/fig1_perpair_anytouch.csv`).
+(= `data/results/alignment_matrix_anytouch.csv`).
 
 ### 3c. TVL-ViT-B additions (11 new pairs × 4 metrics)
 
@@ -135,13 +135,13 @@ python -m src.extract_tvl_vitb_features \
     --output-dir experiments/tvl_vitb_full
 
 # Then compute the 11 new pairs (TVL-ViT-B × {10 baseline + AnyTouch}):
-python -m src.experiments.tvl_vitb_pairwise \
+python -m src.experiments.alignment_matrix_tvl_vitb \
     --features-dir experiments/tvl_vitb_full/features \
     --output-dir experiments/tvl_vitb_full
 ```
 
 Outputs `experiments/tvl_vitb_full/results.csv`
-(= `data/results/fig1_perpair_tvl_vitb.csv`).
+(= `data/results/alignment_matrix_tvl_vitb.csv`).
 
 ### 3d. Procrustes M5 (66 pairs × 1 metric)
 
@@ -151,54 +151,54 @@ After 3a-c have produced their `features/*.npy`:
 python scripts/procrustes_m5.py
 ```
 
-Outputs `experiments/fig1_full/procrustes_m5.csv`
-(= `data/results/fig1_procrustes_m5.csv`).
+Outputs `experiments/alignment_matrix_full/procrustes_m5.csv`
+(= `data/results/alignment_matrix_procrustes_m5.csv`).
 
 ### 3e. Aggregate to ground_truth.json
 
 ```bash
 # Copy the four CSVs into data/results/ if they were written elsewhere
-cp experiments/fig1_full/results.csv         data/results/fig1_perpair_base.csv
-cp experiments/anytouch_full/results.csv     data/results/fig1_perpair_anytouch.csv
-cp experiments/tvl_vitb_full/results.csv     data/results/fig1_perpair_tvl_vitb.csv
-cp experiments/fig1_full/procrustes_m5.csv   data/results/fig1_procrustes_m5.csv
+cp experiments/alignment_matrix_full/results.csv         data/results/alignment_matrix_base.csv
+cp experiments/anytouch_full/results.csv     data/results/alignment_matrix_anytouch.csv
+cp experiments/tvl_vitb_full/results.csv     data/results/alignment_matrix_tvl_vitb.csv
+cp experiments/alignment_matrix_full/procrustes_m5.csv   data/results/alignment_matrix_procrustes_m5.csv
 python scripts/compute_ground_truth.py
 ```
 
 ## 4. Fig. 2 — scale curve (Sparsh size × data fraction, ~2 h)
 
 ```bash
-python -m src.experiments.fig2_scale_curve \
+python -m src.experiments.scale_curve \
     --subset all --k 10 --n-perms 100 \
-    --output-dir experiments/fig2_full
+    --output-dir experiments/scale_curve_full
 ```
 
-Outputs `experiments/fig2_full/results.csv` (= `data/results/fig2_scale.csv`).
+Outputs `experiments/scale_curve_full/results.csv` (= `data/results/scale_curve.csv`).
 
 The 14-pair extension that adds AnyTouch and TVL-ViT-B fractions is
-in `src.experiments.fig2_extension`; its output maps to
-`data/results/fig2_scale_extended.csv`.
+in `src.experiments.scale_curve_extension`; its output maps to
+`data/results/scale_curve_extension.csv`.
 
 ## 5. Fig. 3 — layer-wise probe (~3 h)
 
 ```bash
-python -m src.experiments.fig1_layerwise --subset all
+python -m src.experiments.layerwise_probe --subset all
 ```
 
-Output maps to `data/results/fig3_layerwise.csv` (Sparsh 22-pair) and
-`data/results/fig3_layerwise_extended.csv` (AnyTouch + TVL-ViT-B
-extension), the latter via `src.experiments.fig1_layerwise_extension`.
+Output maps to `data/results/layerwise_probe.csv` (Sparsh 22-pair) and
+`data/results/layerwise_probe_extension.csv` (AnyTouch + TVL-ViT-B
+extension), the latter via `src.experiments.layerwise_probe_extension`.
 
 ## 6. Fig. 4 — per-attribute alignment (~1 h, reuses Fig. 1 features)
 
 ```bash
-python -m src.experiments.fig4_attribute \
+python -m src.experiments.attribute_alignment \
     --subset all --k 10 \
-    --features-from experiments/fig1_full/features \
-    --output-dir experiments/fig4_full
+    --features-from experiments/alignment_matrix_full/features \
+    --output-dir experiments/attribute_alignment_full
 ```
 
-Outputs `experiments/fig4_full/results.csv` (= `data/results/fig4_attribute.csv`).
+Outputs `experiments/attribute_alignment_full/results.csv` (= `data/results/attribute_alignment.csv`).
 
 ## 7. WIT cross-check (~1 h)
 
@@ -211,28 +211,28 @@ Output -> `data/results/wit_anchor.csv`.
 ## 8. TacQuad cross-check (~1 h)
 
 ```bash
-python -m src.experiments.fig1_tacquad
+python -m src.experiments.tacquad_replication
 ```
 
-Output -> `data/results/tacquad.csv`.
+Output -> `data/results/tacquad_replication.csv`.
 
 ## 9. Sparsh Mode-A vs Mode-B sensitivity (~30 min)
 
 ```bash
-python -m src.experiments.sparsh_sensitivity \
-    --output-dir experiments/sparsh_sensitivity
+python -m src.experiments.sparsh_mode_sensitivity \
+    --output-dir experiments/sparsh_mode_sensitivity
 ```
 
-Output -> `data/results/sparsh_mode_a_b.csv`.
+Output -> `data/results/sparsh_mode_sensitivity.csv`.
 
 ## 10. Metric consistency table (~10 sec, post-hoc)
 
 After Fig. 1 has been computed:
 
 ```bash
-python -m src.experiments.tbl2_metric_consistency \
-    --input experiments/fig1_full/results.csv \
-    --output-dir experiments/tbl2_full
+python -m src.experiments.metric_consistency \
+    --input experiments/alignment_matrix_full/results.csv \
+    --output-dir experiments/metric_consistency_full
 ```
 
 Output -> `data/results/metric_consistency.csv`.

@@ -284,9 +284,9 @@
   },
   "tvl_n": 43502,
   "source_csvs": [
-    "fig1_perpair_base.csv",
-    "fig1_perpair_anytouch.csv",
-    "fig1_perpair_tvl_vitb.csv",
-    "fig1_procrustes_m5.csv"
+    "alignment_matrix_base.csv",
+    "alignment_matrix_anytouch.csv",
+    "alignment_matrix_tvl_vitb.csv",
+    "alignment_matrix_procrustes_m5.csv"
   ]
 }

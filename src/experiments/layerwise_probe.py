@@ -15,14 +15,14 @@ Design:
   pool: patch mean (Sparsh-fair)
 
 Usage:
-    python -m src.experiments.fig1_layerwise \
+    python -m src.experiments.layerwise_probe \
         --subset all \
-        --output-dir experiments/fig1_layerwise
+        --output-dir experiments/layerwise_probe_full
 
 Output:
-    experiments/fig1_layerwise/features/<encoder>.L<idx>.npy
-    experiments/fig1_layerwise/results.csv
-    experiments/fig1_layerwise/summary.txt
+    experiments/layerwise_probe_full/features/<encoder>.L<idx>.npy
+    experiments/layerwise_probe_full/results.csv
+    experiments/layerwise_probe_full/summary.txt
 """
 from __future__ import annotations
 import argparse
@@ -322,7 +322,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--subset", default="all", choices=["all", "ssvtp", "hct"])
     ap.add_argument("--max-samples", type=int, default=None)
-    ap.add_argument("--output-dir", default="experiments/fig1_layerwise")
+    ap.add_argument("--output-dir", default="experiments/layerwise_probe_full")
     ap.add_argument("--data-dir", default="data/tvl")
     ap.add_argument("--k", type=int, default=10)
     ap.add_argument("--quartiles", nargs="+", type=int, default=[1, 2, 3, 4])

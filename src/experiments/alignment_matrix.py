@@ -14,14 +14,14 @@ Protocol:
     5. For each unordered pair (a, b), compute each metric and append a
        row to results.csv (encoder_a, encoder_b, metric, value).
     6. Plot a 2x2 heatmap grid (one subplot per metric) into
-       paper/figures/fig1_alignment_matrix.pdf.
+       paper/figures/alignment_matrix.pdf.
 
 Usage (small sanity run, HCT-only, 100 samples):
-    python -m src.experiments.fig1_alignment_matrix \
-        --subset hct --max-samples 100 --output-dir experiments/fig1_smoke
+    python -m src.experiments.alignment_matrix \
+        --subset hct --max-samples 100 --output-dir experiments/alignment_matrix_smoke
 
 Full run (all encoders, all TVL):
-    python -m src.experiments.fig1_alignment_matrix \
+    python -m src.experiments.alignment_matrix \
         --subset all --output-dir experiments/fig1
 """
 from __future__ import annotations
@@ -193,11 +193,11 @@ def main():
     parser.add_argument("--max-samples", type=int, default=None)
     parser.add_argument("--k", type=int, default=10)
     parser.add_argument("--n-perms", type=int, default=100)
-    parser.add_argument("--output-dir", type=str, default="experiments/fig1")
+    parser.add_argument("--output-dir", type=str, default="experiments/alignment_matrix_full")
     parser.add_argument("--encoders", type=str, nargs="+", default=None,
                         help="Encoder names to run (default: all).")
     parser.add_argument("--figure-path", type=str,
-                        default="paper/figures/fig1_alignment_matrix.pdf")
+                        default="paper/figures/alignment_matrix.pdf")
     args = parser.parse_args()
 
     out_dir = Path(args.output_dir)

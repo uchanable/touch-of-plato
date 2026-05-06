@@ -18,9 +18,9 @@ touch cross-modal alignment is weaker than vision-language
 cross-modal alignment: we ask *which* attributes survive.
 
 Usage:
-    python -m src.experiments.fig4_attribute \
-        --output-dir experiments/fig4_full \
-        --figure-path paper/figures/fig4_attribute.pdf
+    python -m src.experiments.attribute_alignment \
+        --output-dir experiments/attribute_alignment_full \
+        --figure-path paper/figures/attribute_alignment.pdf
 """
 from __future__ import annotations
 import argparse
@@ -39,7 +39,7 @@ from src.alignment_metrics import (
     mutual_knn_alignment,
     debiased_cka_alignment,
 )
-from src.experiments.fig1_alignment_matrix import extract_features
+from src.experiments.alignment_matrix import extract_features
 
 
 # Hand-curated attribute lexicon. Informed by TVL captions we inspected
@@ -117,9 +117,9 @@ def main():
     parser.add_argument("--max-samples", type=int, default=None)
     parser.add_argument("--min-subset-size", type=int, default=50,
                         help="Skip attributes with fewer than this many positive samples.")
-    parser.add_argument("--output-dir", type=str, default="experiments/fig4_full")
+    parser.add_argument("--output-dir", type=str, default="experiments/attribute_alignment_full")
     parser.add_argument("--figure-path", type=str,
-                        default="paper/figures/fig4_attribute.pdf")
+                        default="paper/figures/attribute_alignment.pdf")
     parser.add_argument("--features-from", type=str, default=None,
                         help="Optional: reuse features/*.npy from a previous fig1 run.")
     args = parser.parse_args()

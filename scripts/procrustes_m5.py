@@ -16,7 +16,7 @@ families. M5 = 1 corresponds to perfect Procrustes-recoverable alignment;
 M5 = 0 corresponds to no orthogonal-rotation match.
 
 Run after feature extraction (the script reads .npy features
-    written by the per-experiment runners under experiments/{fig1_full,
+    written by the per-experiment runners under experiments/{alignment_matrix_full,
     anytouch_full, tvl_vitb_full}/features/):
         python scripts/procrustes_m5.py
 """
@@ -32,9 +32,9 @@ import numpy as np
 
 # ---------------------------------------------------------------------------
 ROOT = Path(os.environ.get("PLATONIC_TOUCH_ROOT", Path(__file__).resolve().parents[1]))
-FEAT_FIG1 = ROOT / "experiments" / "fig1_full" / "features"
+FEAT_FIG1 = ROOT / "experiments" / "alignment_matrix_full" / "features"
 FEAT_ANYTOUCH = ROOT / "experiments" / "anytouch_full" / "features"
-OUT_CSV = ROOT / "experiments" / "fig1_full" / "procrustes_m5.csv"
+OUT_CSV = ROOT / "experiments" / "alignment_matrix_full" / "procrustes_m5.csv"
 
 ENCODERS = [
     "dinov2_small",
