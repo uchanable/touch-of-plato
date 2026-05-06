@@ -1,0 +1,20 @@
+Sparsh — third-party encoder license notice
+=============================================
+
+This repository does not redistribute Sparsh model weights or code.
+At runtime, `scripts/setup_third_party.sh` clones the upstream Sparsh
+repository, and `scripts/download_checkpoints.py` fetches the
+pretrained Sparsh-DINO and Sparsh-IJEPA weights.
+
+  Upstream repo:  https://github.com/facebookresearch/sparsh
+  Paper:          Higuera et al., "Sparsh: Self-supervised touch
+                  representations for vision-based tactile sensing",
+                  CoRL 2024.
+  License:        CC BY-NC 4.0 (Attribution-NonCommercial 4.0 International)
+                  See https://github.com/facebookresearch/sparsh/blob/main/LICENSE
+
+By using the Sparsh checkpoints downloaded via this repository's setup
+scripts, you agree to comply with the upstream non-commercial license.
+The Sparsh weights are NOT redistributed here and the MIT license that
+applies to this repository's own code (LICENSE) does NOT extend to the
+Sparsh weights.

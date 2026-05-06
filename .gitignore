@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.python-version
+*.egg-info/
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data / checkpoints / cached features (downloaded externally, not versioned)
+data/tvl/
+data/wit/
+data/tacquad/
+features/
+checkpoints/
+*.pt
+*.pth
+*.safetensors
+*.npy
+*.npz
+*.tar
+*.tar.gz
+*.zip
+
+# Third-party clones (set up via scripts/setup_third_party.sh)
+third_party/
+
+# Experiment outputs
+runs/
+wandb/
+outputs/
+lightning_logs/
+logs/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*~
+
+# Secrets
+.env
+.env.local
+*.key

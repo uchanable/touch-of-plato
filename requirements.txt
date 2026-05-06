@@ -1,0 +1,42 @@
+# Pinned environment for "A Touch of Plato" reproducibility.
+# Tested on Python 3.12.13 (macOS arm64). Runtime should be portable to
+# Linux x86_64 / CUDA — verify with `pytest tests/` after install.
+
+# --- Core scientific stack ---
+numpy==2.4.4
+pandas==3.0.2
+scipy==1.17.1
+scikit-learn==1.8.0
+matplotlib==3.10.8
+h5py==3.16.0
+tqdm==4.67.3
+PyYAML==6.0.3
+einops==0.8.2
+
+# --- Deep learning ---
+torch==2.11.0
+transformers==5.5.4
+huggingface_hub==1.10.1
+datasets==4.8.4
+accelerate==1.13.0
+lightning==2.6.1
+
+# --- Image / dataset handling ---
+pillow==12.2.0
+opencv-python==4.13.0.92
+
+# --- Config / experiment plumbing ---
+hydra-core==1.3.2
+omegaconf==2.3.0
+
+# --- Test / utility ---
+pytest==9.0.3
+gdown==6.0.0  # AnyTouch checkpoint download from Google Drive
+
+# --- Third-party alignment libraries ---
+# After `pip install -r requirements.txt`, run:
+#     bash scripts/setup_third_party.sh
+# to clone:
+#   - minyoungg/platonic-rep   (M4 unbiased-CKA cross-check, ICML 2024)
+#   - facebookresearch/sparsh  (Sparsh tactile encoder loaders, CC-BY-NC 4.0)
+#   - Alxmrphi/correcting_CKA_alignment  (debiased CKA reference, ICLR 2024)

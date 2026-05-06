@@ -1,0 +1,122 @@
+# Encoder registry for Table 1 (paper §3.3).
+# 12 frozen pretrained encoders, no fine-tuning. Total = 5 vision + 3
+# language + 4 tactile, yielding C(12,2) = 66 cross-encoder pairs.
+#
+# Each entry records:
+#   id          : registry key passed to `src.encoders.get_encoder(id)`
+#   modality    : vision | language | tactile
+#   d           : feature dimension (output of the loader)
+#   hf_id       : HuggingFace identifier or upstream source
+#   feature     : how the per-sample feature is produced
+#   ckpt_local  : on-disk subdir under $PLATONIC_TOUCH_CKPT_ROOT (default ./checkpoints)
+#   loader      : `src.encoders.<module>.<function>`
+#   notes       : any divergence from upstream defaults
+
+vision:
+  - id: dinov2_small
+    d: 384
+    hf_id: facebook/dinov2-small
+    feature: CLS token (last hidden), no projection
+    ckpt_local: facebook__dinov2-small
+    loader: src.encoders.vision.load_dinov2_small
+    notes: Used as the small reference point in the Fig. 2 scale curve.
+
+  - id: dinov2_base
+    d: 768
+    hf_id: facebook/dinov2-base
+    feature: CLS token (last hidden), no projection
+    ckpt_local: facebook__dinov2-base
+    loader: src.encoders.vision.load_dinov2_base
+    notes: ""
+
+  - id: dinov2_large
+    d: 1024
+    hf_id: facebook/dinov2-large
+    feature: CLS token (last hidden), no projection
+    ckpt_local: facebook__dinov2-large
+    loader: src.encoders.vision.load_dinov2_large
+    notes: Used as the large reference point in the Fig. 2 scale curve.
+
+  - id: clip_l_vision
+    d: 768
+    hf_id: openai/clip-vit-large-patch14
+    feature: CLIPModel.get_image_features().pooler_output
+    ckpt_local: openai__clip-vit-large-patch14
+    loader: src.encoders.vision.load_clip_l_vision
+    notes: ""
+
+  - id: siglip_base_vision
+    d: 768
+    hf_id: google/siglip-base-patch16-224
+    feature: SiglipModel.get_image_features().pooler_output
+    ckpt_local: google__siglip-base-patch16-224
+    loader: src.encoders.vision.load_siglip_base_vision
+    notes: ""
+
+language:
+  - id: clip_l_text
+    d: 768
+    hf_id: openai/clip-vit-large-patch14
+    feature: CLIPModel.get_text_features().pooler_output
+    ckpt_local: openai__clip-vit-large-patch14
+    loader: src.encoders.language.load_clip_l_text
+    notes: Shares the CLIP-L checkpoint with `clip_l_vision`.
+
+  - id: siglip_base_text
+    d: 768
+    hf_id: google/siglip-base-patch16-224
+    feature: SiglipModel.get_text_features().pooler_output
+    ckpt_local: google__siglip-base-patch16-224
+    loader: src.encoders.language.load_siglip_base_text
+    notes: Shares the SigLIP checkpoint with `siglip_base_vision`.
+
+  - id: mpnet
+    d: 768
+    hf_id: sentence-transformers/all-mpnet-base-v2
+    feature: Attention-masked mean pooling over token embeddings
+    ckpt_local: sentence-transformers__all-mpnet-base-v2
+    loader: src.encoders.language.load_mpnet
+    notes: ""
+
+tactile:
+  - id: sparsh_dino_base
+    d: 768
+    hf_id: facebook/sparsh-dino-base
+    feature: Mean pool over `x_norm_patchtokens` (no CLS)
+    ckpt_local: facebook__sparsh-dino-base/dino_vitbase.safetensors
+    loader: src.encoders.tactile.load_sparsh_dino_base
+    notes: >-
+      Sparsh native ViT-Base loaded via `third_party/sparsh/tactile_ssl`
+      (NOT HuggingFace AutoModel). Single-frame TVL images are
+      duplicated channel-wise (3ch -> 6ch) to match Sparsh's
+      two-frame temporal input. Documented in paper Limitations.
+
+  - id: sparsh_ijepa_base
+    d: 768
+    hf_id: facebook/sparsh-ijepa-base
+    feature: Mean pool over `x_norm_patchtokens` (no CLS)
+    ckpt_local: facebook__sparsh-ijepa-base/ijepa_vitbase.safetensors
+    loader: src.encoders.tactile.load_sparsh_ijepa_base
+    notes: Same Sparsh wrapper as `sparsh_dino_base`.
+
+  - id: anytouch
+    d: 1024
+    hf_id: "GeWu-Lab/AnyTouch (Google Drive checkpoint)"
+    feature: CLS token after `post_layernorm`, sensor_type=0 (GelSight)
+    ckpt_local: anytouch/checkpoint.pth
+    loader: src.encoders.anytouch.load_anytouch
+    notes: >-
+      Touch tower of AnyTouch (CLIP-ViT-L/14 backbone). Sensor type
+      defaults to 0 (TAG/GelSight); override via env
+      `ANYTOUCH_SENSOR_TYPE`.
+
+  - id: tvl_vitb
+    d: 768
+    hf_id: "mlfu7/Touch-Vision-Language-Models (TVL-encoder ViT-Base)"
+    feature: 768-d projection-head output (avg-pool over patches, no L2 norm)
+    ckpt_local: tvl_vitb/tvl_enc_vitb.pth
+    loader: src.encoders.tvl_vitb.load_tvl_vitb
+    notes: >-
+      Trained tactile encoder released alongside TVL-LLaMA (NOT the
+      LLaMA-2 generative model). Tactile-specific preprocessing:
+      pad-to-square + 90° rotate + tac-channel mean/std (not ImageNet).

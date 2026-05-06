@@ -1,49 +1,95 @@
 # A Touch of Plato
 
-Code, data references, and reproducibility scripts for the paper:
+Code, alignment-matrix CSVs, and reproducibility scripts for the
+NeurIPS 2026 submission **"A Touch of Plato: Does the Platonic
+Representation Hypothesis Extend to Tactile Modalities?"** (Submission
+\#18965). Authors anonymized for double-blind review.
 
-> **A Touch of Plato: Does the Platonic Representation Hypothesis Extend to Tactile Modalities?**
+## What this repo contains
 
-## Status
+A 12-encoder, 66-pair, 5-metric alignment benchmark on the public
+Touch-Vision-Language (TVL) corpus.
 
-🚧 Code release in progress. The full pipeline — feature extraction, the
-66-pair five-metric alignment matrix, the layer-wise probe, the scale
-curve, and figure-generation scripts — will be uploaded here ahead of the
-NeurIPS 2026 review period.
+- **Encoders (12, all frozen, no fine-tuning):**
+  5 vision (DINOv2-S/B/L, CLIP-L vision, SigLIP-B vision),
+  3 language (CLIP-L text, SigLIP-B text, all-mpnet-base-v2),
+  4 tactile (Sparsh-DINO, Sparsh-IJEPA, AnyTouch, TVL-ViT-B).
+- **Metrics (5):**
+  M1 mutual-kNN · M2 debiased CKA · M3 null-calibrated kNN-z ·
+  M4 unbiased CKA (cross-check via [`platonic-rep`](https://github.com/minyoungg/platonic-rep)) ·
+  M5 orthogonal Procrustes.
+- **Released artefacts:**
+  - 13 per-pair CSVs covering Fig. 1 / 2 / 3 / 4 of the paper plus the
+    metric-consistency table, the WIT cross-check, the TacQuad
+    cross-check, and the Sparsh Mode-A/B sensitivity (`data/results/`).
+  - `data/results/ground_truth.json` — paper headline numbers
+    aggregated from those CSVs (T-T 0.380, T-V 0.375, V-L 0.027,
+    T-V / V-L = 14×).
 
-## What this repository will contain
+## Quickstart
 
-- Five-metric alignment benchmark (M1–M5: mutual-$k$NN, debiased CKA,
-  null-calibrated $z$, unbiased CKA, orthogonal Procrustes)
-- Feature-extraction scripts for 12 pretrained encoders
-  (5 vision · 3 language · 4 touch)
-- Cached `.npy` feature arrays on the full TVL dataset
-  ($N = 43{,}502$) so the alignment matrix can be reproduced
-  without re-running the ~8 h feature-extraction step
-- Layer-wise probe and scale-curve scripts
-- Figure-generation scripts for all main figures and the appendix
+```bash
+# 1. Install pinned deps (Python 3.12 recommended)
+pip install -r requirements.txt
 
-## Datasets
+# 2. Clone Sparsh / platonic-rep / correcting_CKA_alignment into third_party/
+bash scripts/setup_third_party.sh
 
-All input data are publicly available and used under their original
-licenses:
+# 3. Download encoder checkpoints (~several GB)
+python scripts/download_checkpoints.py
 
-- **TVL** — `mlfu7/Touch-Vision-Language-Dataset` (Apache 2.0)
-- **WIT-1024** — `minhuh/prh::wit_1024` subset
-- **TacQuad** — released with the AnyTouch paper
+# 4. Verify the released CSVs aggregate to the paper headline numbers
+python scripts/compute_ground_truth.py
+# -> writes data/results/ground_truth.json
 
-## Encoders
+# 5. (optional) Quick sanity check on a 500-sample TVL slice (~5 min on a laptop CPU)
+python scripts/sanity_test.py
+```
 
-Twelve frozen pretrained encoders are evaluated; full registry, sources,
-and feature dimensions are in the paper appendix. None of them are
-trained or modified in this work.
+To re-extract features from scratch and recompute the full 66-pair
+matrix, see [`REPRODUCE.md`](./REPRODUCE.md).
+
+## Repo layout
+
+```
+src/
+  alignment_metrics/   # M1 mutual-kNN, M2 dCKA, M3 null-cal z, M4 uCKA
+  encoders/            # 12 frozen encoder loaders (Table 1)
+  datasets/            # TVL + TacQuad
+  experiments/         # Per-figure runners (fig1/fig2/fig4/wit/tacquad/...)
+scripts/
+  compute_ground_truth.py
+  procrustes_m5.py
+  download_checkpoints.py
+  setup_third_party.sh
+configs/
+  encoders.yaml        # Table 1 registry (HF id, d, modality, loader path)
+  hyperparams.yaml     # k=10, B=100, seed=0, ...
+data/
+  results/             # 13 per-pair CSVs + ground_truth.json
+tests/                 # pytest sanity tests for metrics + encoders
+```
+
+## Hardware note
+
+The released CSVs were produced on a Mac Studio (Apple Silicon M2
+Ultra). For the camera-ready version, the same pipeline will be
+re-run on cloud GPUs (RunPod L4) and the CSVs will be regenerated.
+Anyone reproducing this work on a CUDA box should expect identical
+results up to floating-point determinism.
 
 ## License
 
-Planned release license:
-- **Code:** MIT
-- **Precomputed alignment matrix (CSV):** CC-BY-4.0
+- **Code:** MIT (see [`LICENSE`](./LICENSE)).
+- **Released CSVs (`data/results/`):** CC BY 4.0 (see
+  [`LICENSE-DATA`](./LICENSE-DATA)).
+- **Sparsh and AnyTouch checkpoints** are downloaded from their
+  upstream sources; they are not redistributed here and remain under
+  their own licenses ([`LICENSE-Sparsh`](./LICENSE-Sparsh),
+  [`LICENSE-AnyTouch`](./LICENSE-AnyTouch)).
 
 ## Citation
 
-Citation information will be added upon acceptance.
+The `CITATION.cff` placeholder in this repo will be filled in at
+camera-ready time. Until then, please cite "A Touch of Plato" by
+its anonymous OpenReview entry (NeurIPS 2026 \#18965).

@@ -1,0 +1,5 @@
+metric,debiased_cka,mutual_knn,null_knn_z,unbiased_cka
+debiased_cka,1.0000,0.8980,0.8729,1.0000
+mutual_knn,0.8980,1.0000,0.9644,0.8980
+null_knn_z,0.8729,0.9644,1.0000,0.8729
+unbiased_cka,1.0000,0.8980,0.8729,1.0000

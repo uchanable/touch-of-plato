@@ -1,0 +1,28 @@
+# Hyperparameters used throughout the paper. Changing any of these will
+# change the numbers reported in `data/results/ground_truth.json`.
+
+# Mutual-kNN (M1)
+mutual_knn:
+  k: 10                  # Huh et al. (ICML 2024) default
+
+# Debiased CKA (M2) and Unbiased CKA (M4)
+cka:
+  unbiased: true         # Murphy et al. (ICLR 2024) finite-sample correction
+
+# Null-calibrated z (M3)
+null_calibration:
+  protocol: block_permute      # block-level permutation, see paper §3.3
+  n_permutations: 100          # B = 100 random permutations per pair
+  block_size: 1                # block of 1 = sample-level permutation
+
+# Procrustes alignment (M5)
+procrustes:
+  scale_invariant: true        # orthogonal Procrustes, scale absorbed
+
+# Reproducibility
+seed: 0
+
+# Data
+tvl:
+  N_total: 43502               # full TVL = 43,502 image-tactile-language triples
+  fraction_default: 1.0        # use full dataset for headline numbers

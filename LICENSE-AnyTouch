@@ -1,0 +1,18 @@
+AnyTouch — third-party encoder license notice
+================================================
+
+This repository does not redistribute the AnyTouch model weights.
+At runtime, `scripts/download_checkpoints.py` (or a dedicated download
+script using `gdown`) fetches the pretrained AnyTouch ViT-B checkpoint
+from the public Google Drive link provided by the upstream authors.
+
+  Upstream repo:  https://github.com/GeWu-Lab/AnyTouch
+  Paper:          Feng et al., "AnyTouch: Learning Unified Static-Dynamic
+                  Representation across Multiple Visuo-tactile Sensors",
+                  ICLR 2025.
+
+The AnyTouch authors release their checkpoint and code under their own
+terms; please consult the upstream LICENSE file in the AnyTouch
+repository before any redistribution or commercial use. The MIT license
+of this repository (LICENSE) does NOT extend to the AnyTouch weights or
+code.
