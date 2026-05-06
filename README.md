@@ -87,9 +87,3 @@ results up to floating-point determinism.
   upstream sources; they are not redistributed here and remain under
   their own licenses ([`LICENSE-Sparsh`](./LICENSE-Sparsh),
   [`LICENSE-AnyTouch`](./LICENSE-AnyTouch)).
-
-## Citation
-
-The `CITATION.cff` placeholder in this repo will be filled in at
-camera-ready time. Until then, please cite "A Touch of Plato" by
-its anonymous OpenReview entry (NeurIPS 2026 \#18965).
