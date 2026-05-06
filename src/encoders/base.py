@@ -7,8 +7,7 @@ tuple, giving the experiment runners a uniform interface:
 
 where `model(preprocess(raw_input)) -> Tensor[B, feature_dim]`.
 
-See the paper §3.3 (Table 1) for the paper-side binding
-of each loader function to a paper row.
+See paper §3.3 (Table 1) for the binding of each loader to a paper row.
 """
 from __future__ import annotations
 import os

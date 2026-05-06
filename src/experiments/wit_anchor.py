@@ -1,11 +1,11 @@
-"""WIT Anchor Replication — Stage 1.5-d.
+"""WIT-1024 cross-dataset anchor replication (paper Appendix).
 
 Reproduce Huh et al. (ICML 2024) V-L mutual-kNN on the same 1024-pair WIT subset
 that Huh used (HuggingFace `minhuh/prh @ wit_1024` branch).
 
 If this pipeline reproduces Huh's V-L ~0.16-0.22 range, then our TVL V-L = 0.027
 cannot be a code bug — it must be a TVL domain effect (caption brevity, narrow
-surface domain). This is the central sanity check before NeurIPS 2026 submission.
+surface domain). This is the central cross-dataset sanity check on the WIT-1024 anchor.
 
 Usage:
     python -m src.experiments.wit_anchor --output-dir experiments/wit_anchor
@@ -101,7 +101,10 @@ def main() -> None:
     if args.encoders:
         encoder_ids = args.encoders
     else:
-        encoder_ids = [e for e in list_encoders() if "sparsh" not in e]
+        # WIT-1024 has no tactile pairs, so we run vision + language encoders
+        # only. Tactile encoders are listed explicitly (matches Table 1).
+        TACTILE = {"sparsh_dino_base", "sparsh_ijepa_base", "anytouch", "tvl_vitb"}
+        encoder_ids = [e for e in list_encoders() if e not in TACTILE]
     print(f"[2/4] Encoders: {encoder_ids}")
 
     features: dict[str, np.ndarray] = {}

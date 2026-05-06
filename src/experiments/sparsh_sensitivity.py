@@ -5,7 +5,7 @@ Sparsh's 6-channel input is empirically equivalent to the temporal stride
 that Sparsh was natively trained with (Mode B: I_t || I_{t-k}, k=5
 frames ≈ 80 ms).
 
-Protocol: 02_stage1_empirical/paper/sparsh_sensitivity_protocol.md
+Protocol: see paper Appendix (Sparsh Mode A vs B sensitivity).
 
 Outputs (under --output-dir, default experiments/sparsh_sensitivity):
     pairs_index.csv      — sample_id, run_dir, t_frame, t5_frame, vision_frame, frame_idx

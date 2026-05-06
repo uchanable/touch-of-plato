@@ -11,7 +11,7 @@ Actual structure (verified during initial dataset prep):
 
     data/tvl/tvl_dataset/
     ├── ssvtp/
-    │   ├── train.csv         #   columns: TBD
+    │   ├── train.csv
     │   ├── test.csv
     │   ├── images_tac/image_{id}_tac.jpg
     │   └── images_rgb/image_{id}_rgb.jpg

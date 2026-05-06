@@ -7,8 +7,7 @@ Public API (corresponds to Section 3.2 of the paper):
     - unbiased_cka_alignment (M4 cross-check)
     - compute_alignment (string-dispatched convenience wrapper)
 
-See the paper's Limitations section for the binding contract between
-code names and paper notation.
+See paper §3.2 (Notation) for the binding between code names and paper notation.
 """
 from .mutual_knn import mutual_knn_alignment
 from .debiased_cka import debiased_cka_alignment

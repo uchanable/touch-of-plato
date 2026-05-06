@@ -1,5 +1,5 @@
 """Layer-wise probe extension: add AnyTouch + tvl_vitb to the existing 8-encoder
-Layer-wise A nullcal pool (Stage 1.5-b).
+Layer-wise probe nullcal pool.
 
 Existing run: 8 encoder × 22 pair × 4 quartile = 88 cell (Sparsh-DINO/IJEPA,
 DINOv2-S/B/L, CLIP-L vision, SigLIP-Base vision, ResNet-50 control).

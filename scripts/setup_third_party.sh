@@ -1,6 +1,6 @@
 #!/bin/bash
 # Clone and install third-party alignment libraries.
-# Run AFTER scripts/env_setup.sh.
+# Run AFTER `pip install -r requirements.txt`.
 set -e
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"

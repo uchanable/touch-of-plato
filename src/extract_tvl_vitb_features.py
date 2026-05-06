@@ -28,7 +28,7 @@ def main():
     parser.add_argument("--subset", type=str, choices=["ssvtp", "hct", "all"], default="all")
     parser.add_argument("--output-dir", type=str, required=True)
     parser.add_argument("--batch-size", type=int, default=64,
-                        help="ViT-Base is small; 64 fits comfortably on GB10.")
+                        help="ViT-Base is small; 64 fits comfortably on a single mid-range GPU.")
     args = parser.parse_args()
 
     out_dir = Path(args.output_dir)

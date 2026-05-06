@@ -39,6 +39,8 @@ _DISPLAY: dict[str, tuple[str, str, str]] = {
     "mpnet":              ("all-mpnet-base-v2",      r"\texttt{sentence-transformers/all-mpnet-base-v2}", "Language"),
     "sparsh_dino_base":   ("Sparsh-DINO-Base",       r"\texttt{facebook/sparsh-dino-base} (6-ch)",    "Tactile"),
     "sparsh_ijepa_base":  ("Sparsh-IJEPA-Base",      r"\texttt{facebook/sparsh-ijepa-base} (6-ch)",   "Tactile"),
+    "anytouch":           ("AnyTouch (ViT-L/14)",    r"\texttt{GeWu-Lab/AnyTouch} (3-ch)",            "Tactile"),
+    "tvl_vitb":           ("TVL-ViT-B (trained)",    r"\texttt{mlfu7/Touch-Vision-Language-Models} (3-ch)", "Tactile"),
 }
 
 

@@ -192,7 +192,7 @@ def main():
     parser.add_argument("--subset", type=str, choices=["ssvtp", "hct", "all"], default="all")
     parser.add_argument("--max-samples", type=int, default=None)
     parser.add_argument("--k", type=int, default=10)
-    parser.add_argument("--n-perms", type=int, default=50)
+    parser.add_argument("--n-perms", type=int, default=100)
     parser.add_argument("--output-dir", type=str, default="experiments/fig1")
     parser.add_argument("--encoders", type=str, nargs="+", default=None,
                         help="Encoder names to run (default: all).")

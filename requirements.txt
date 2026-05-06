@@ -29,6 +29,8 @@ protobuf==7.34.1         # used by SigLIP tokenizer (transitive transformers dep
 # --- Image / dataset handling ---
 pillow==12.2.0
 opencv-python==4.13.0.92
+pyarrow==24.0.0          # used by src/experiments/wit_anchor.py (parquet reader; also a transitive datasets dep)
+safetensors==0.7.0       # used by src/encoders/tactile.py (Sparsh weights load); also transitive transformers dep
 
 # --- Config / experiment plumbing ---
 hydra-core==1.3.2

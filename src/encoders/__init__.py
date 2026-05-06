@@ -6,7 +6,7 @@ Public API:
     enc = get_encoder("dinov2_base")
     tensor_out = enc.model(enc.preprocess(pil_image))  # (1, 768)
 
-See the paper §3.3 and the paper's Limitations section.
+See paper §3.3 (Table 1) for the paper-side binding of each loader.
 """
 from __future__ import annotations
 from typing import Callable, Dict

@@ -111,7 +111,7 @@ def main():
         feats[name] = load_feature(name).astype(np.float32)
         print(f"  {name}: {feats[name].shape} {feats[name].dtype}")
 
-    # Compute Procrustes for all 55 unordered pairs
+    # Compute Procrustes for all 66 unordered pairs
     rows = []
     pairs = list(combinations(ENCODERS, 2))
     print(f"\nComputing M5 for {len(pairs)} pairs ...")

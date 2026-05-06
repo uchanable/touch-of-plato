@@ -1,10 +1,10 @@
-"""Layer-wise m-kNN — Stage 1.5-b.
+"""Layer-wise m-kNN probe (paper Fig. 3).
 
 Test alternative hypothesis (b): surface feature convergence.
 If T-V alignment (m-kNN ~ 0.391, full-run) is a low-level effect, it should
 be strongest at shallow transformer blocks (Q1) and decay with depth (Q4).
 
-Design (per 02_stage1_empirical/memo/40_stage15_layerwise_plan.md §3):
+Design:
   22 pairs:
     - 10 T-V (Sparsh-{dino,ijepa} x 5 vision)
     - 1 T-T (Sparsh-DINO ↔ Sparsh-IJEPA)
@@ -335,7 +335,7 @@ def main() -> None:
     ap.add_argument("--include-pair-types", nargs="+", default=None,
                     choices=["T-V", "T-T", "V-V", "Control"],
                     help="Limit pair types (default: all 4).")
-    ap.add_argument("--n-perms", type=int, default=0,
+    ap.add_argument("--n-perms", type=int, default=100,
                     help="If >0, also compute null-calibrated z-score with this many permutations.")
     ap.add_argument("--null-subsample-N", type=int, default=None,
                     help="If set, subsample to this N for null-calibration (raw too).")

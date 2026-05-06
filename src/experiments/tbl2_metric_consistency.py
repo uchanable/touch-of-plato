@@ -1,6 +1,6 @@
 """Table 2: Metric consistency across encoder pairs.
 
-Paper binding: the paper  Tbl. 2 entry + §3.2 claim that the
+Paper binding: Table 2 entry + §3.2 claim that the
 four metrics (mutual-kNN, debiased CKA, null-calibrated z, unbiased CKA)
 produce consistent rankings of encoder pairs.
 

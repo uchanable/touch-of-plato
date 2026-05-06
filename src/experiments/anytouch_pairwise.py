@@ -1,4 +1,4 @@
-"""Pairwise alignment: AnyTouch x {9 other Table 1 encoders}.
+"""Pairwise alignment: AnyTouch x {10 other Table 1 encoders}.
 
 Headline robustness check for §5.7 limitation (ii) of the paper: does the
 existing tactile-encoder result reproduce when we swap in AnyTouch (a
@@ -9,10 +9,10 @@ Inputs:
                      including anytouch.npy AND the 9 baseline encoders
                      (DINOv2 small/base/large, CLIP-L vision/text,
                       SigLIP-Base vision/text, mpnet, Sparsh-DINO,
-                      Sparsh-IJEPA).
+                      Sparsh-IJEPA, TVL-ViT-B).
     --output-dir   : where results.csv / summary.txt / meta.json land.
 
-Computes 4 metrics for each AnyTouch x other pair (9 pairs):
+Computes 4 metrics for each AnyTouch x other pair (10 pairs):
     mutual_knn, debiased_cka, null_knn_z (B=100 perms), unbiased_cka.
 
 This mirrors `src/experiments/fig1_alignment_matrix.py::compute_pairwise_metrics`

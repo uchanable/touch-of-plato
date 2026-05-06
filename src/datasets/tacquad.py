@@ -1,4 +1,4 @@
-"""TacQuad dataset loader — Stage 1.5-c cross-dataset replication.
+"""TacQuad dataset loader (cross-dataset replication).
 
 Reference:
     Feng, Cui, Cao, Liu, Yu, Wang, Lan, Sun, Zhang, Zhao, Liu, Shao, Lu, Chen,
@@ -6,14 +6,14 @@ Reference:
     Across Multiple Visuo-tactile Sensors." ICLR 2025.
     Dataset: https://huggingface.co/datasets/Mai0313/TacQuad
 
-Goal of Stage 1.5-c (NeurIPS 2026 §5.7 (i)-(c) rebuttal):
+Goal (cross-dataset replication of the T-V > V-L pattern):
     Replicate the TVL T-V > V-L pattern on a different vision-touch-language
     dataset. If the same pattern emerges (T-V mutual-kNN >> V-L mutual-kNN)
     on TacQuad, then the gap is NOT a TVL-specific artifact.
 
 Data layout (verified during initial dataset prep):
 
-    /Volumes/SSD-MS/platonic-touch-data/tacquad/extracted/
+    data/tacquad/extracted/
     ├── contact_indoor.csv         # 100 rows (objects); 8 fields:
     │       obj_name, gel_start, gel_end, digit_start, digit_end,
     │       dura_start, dura_end, caption
@@ -53,12 +53,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Literal
 import csv
+import os
 from PIL import Image
 from torch.utils.data import Dataset
 
 
 DEFAULT_TACQUAD_ROOT = Path(
-    "/Volumes/SSD-MS/platonic-touch-data/tacquad/extracted"
+    os.environ.get("TACQUAD_ROOT", "data/tacquad/extracted")
 )
 SubsetName = Literal["indoor", "outdoor", "all"]
 SensorName = Literal["digit", "gelsight", "duragel"]
@@ -91,7 +92,7 @@ class TacQuadItem:
 
 
 class TacQuadDataset(Dataset):
-    """TacQuad vision-touch-text triple loader for Stage 1.5-c.
+    """TacQuad vision-touch-text triple loader for cross-dataset replication.
 
     Same interface as TVLDataset:
         __getitem__(i) -> {"vision": PIL, "tactile": PIL, "text": str, ...}

@@ -78,11 +78,20 @@ feature extraction over the full TVL split, N=43,502).
 
 ### 3a. 10-encoder baseline (45 pairs × 4 metrics)
 
+The Fig. 1 baseline uses the 10 encoders that existed before AnyTouch
+and TVL-ViT-B were added; without the explicit `--encoders` filter the
+runner uses all 12 encoders in the registry (which would produce a
+66-pair CSV, not the 45-pair baseline expected by `compute_ground_truth.py`).
+
 ```bash
 python -m src.experiments.fig1_alignment_matrix \
     --subset all \
     --k 10 --n-perms 100 \
-    --output-dir experiments/fig1_full
+    --output-dir experiments/fig1_full \
+    --encoders dinov2_small dinov2_base dinov2_large \
+               clip_l_vision clip_l_text \
+               siglip_base_vision siglip_base_text mpnet \
+               sparsh_dino_base sparsh_ijepa_base
 ```
 
 Outputs `experiments/fig1_full/results.csv` (= `data/results/fig1_perpair_base.csv`)
@@ -92,9 +101,20 @@ are cached.
 
 ### 3b. AnyTouch additions (10 new pairs × 4 metrics)
 
-Anytouch adds 10 new pairs against the existing 10 encoders.
+`anytouch_pairwise.py` does NOT extract features itself — it expects
+each encoder's `(N, d)` matrix to already be cached as
+`experiments/anytouch_full/features/<id>.npy`. Run the extraction step
+first, which writes both the AnyTouch feature `.npy` and copies of the
+10 baseline-encoder features into the same directory:
 
 ```bash
+# (One-time) Extract AnyTouch features over full TVL.
+python -m src.extract_anytouch_features \
+    --tvl-root data/tvl \
+    --subset all \
+    --output-dir experiments/anytouch_full
+
+# Then compute the 10 new pairs (AnyTouch × the 10 baseline encoders):
 python -m src.experiments.anytouch_pairwise \
     --features-dir experiments/anytouch_full/features \
     --output-dir experiments/anytouch_full
@@ -105,7 +125,16 @@ Outputs `experiments/anytouch_full/results.csv`
 
 ### 3c. TVL-ViT-B additions (11 new pairs × 4 metrics)
 
+Same two-step pattern as §3b: extract first, then pair.
+
 ```bash
+# (One-time) Extract TVL-ViT-B features over full TVL.
+python -m src.extract_tvl_vitb_features \
+    --tvl-root data/tvl \
+    --subset all \
+    --output-dir experiments/tvl_vitb_full
+
+# Then compute the 11 new pairs (TVL-ViT-B × {10 baseline + AnyTouch}):
 python -m src.experiments.tvl_vitb_pairwise \
     --features-dir experiments/tvl_vitb_full/features \
     --output-dir experiments/tvl_vitb_full

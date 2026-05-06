@@ -46,7 +46,6 @@ Tactile preprocessing (faithful to upstream `tvl_enc/tacvis.py`):
        ImageNet).
 """
 from __future__ import annotations
-import os
 import torch
 import torch.nn as nn
 from pathlib import Path
@@ -101,7 +100,7 @@ def load_tvl_vitb() -> LoadedEncoder:
 
     ckpt_path = Path(f"{CKPT_ROOT}/tvl_vitb/tvl_enc_vitb.pth")
     if not ckpt_path.exists():
-        raise FileNotFoundError(f"TVL-LLaMA checkpoint not found: {ckpt_path}")
+        raise FileNotFoundError(f"TVL-ViT-B checkpoint not found: {ckpt_path}")
 
     model = timm.create_model(
         "vit_base_patch16_224",

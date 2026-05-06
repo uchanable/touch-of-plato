@@ -1,6 +1,6 @@
-"""Stage 1.5-c — Fig. 1 alignment matrix replicated on TacQuad.
+"""Fig. 1 alignment matrix replicated on TacQuad (cross-dataset).
 
-Paper binding: NeurIPS 2026 §5.7 (i)-(c) "TVL-specific artifact" rebuttal.
+Paper binding: cross-dataset replication of the T-V > V-L pattern outside TVL.
 
 Goal: Reproduce the T-V > V-L pattern observed on TVL using a different
 vision-touch-language dataset (TacQuad / AnyTouch ICLR 2025). If T-V mutual-kNN
@@ -29,6 +29,7 @@ import argparse
 import csv
 import gc
 import json
+import os
 from pathlib import Path
 
 import numpy as np
@@ -152,7 +153,7 @@ def write_summary(records: list[dict], out_path: Path, meta: dict) -> str:
         by_group.setdefault(g, []).append(r["value"])
 
     lines: list[str] = []
-    lines.append("=== Stage 1.5-c TacQuad summary (mutual-kNN, k={}) ===".format(meta["k"]))
+    lines.append("=== TacQuad cross-dataset summary (mutual-kNN, k={}) ===".format(meta["k"]))
     lines.append(
         f"  dataset: TacQuad subset={meta['subset']} sensor={meta['sensor']} N={meta['N']}"
     )
@@ -172,7 +173,7 @@ def write_summary(records: list[dict], out_path: Path, meta: dict) -> str:
         ratio = float(np.mean(tv) / max(np.mean(vl), 1e-9))
         lines.append(f"  T-V / V-L mean ratio = {ratio:.2f}x")
         lines.append(
-            "  TVL reference (Stage 1 main):  T-V = 0.391, V-L = 0.027 (14x)"
+            "  TVL reference (full pipeline):  T-V = 0.391, V-L = 0.027 (14x)"
         )
         if np.mean(tv) > np.mean(vl):
             lines.append(
@@ -181,7 +182,7 @@ def write_summary(records: list[dict], out_path: Path, meta: dict) -> str:
             )
         else:
             lines.append(
-                "  PATTERN: TacQuad T-V <= V-L (inconsistent → revisit §5.7 (i)-(c))"
+                "  PATTERN: TacQuad T-V <= V-L (inconsistent → inconsistent with TVL — revisit cross-dataset interpretation)"
             )
     lines.append("")
     lines.append("=== Top-5 pairs by mutual_knn ===")
@@ -200,14 +201,14 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
         "--tacquad-root",
-        default="/Volumes/SSD-MS/platonic-touch-data/tacquad/extracted",
+        default=os.environ.get("TACQUAD_ROOT", "data/tacquad/extracted"),
     )
     ap.add_argument("--subset", choices=["indoor", "outdoor", "all"], default="indoor")
     ap.add_argument("--sensor", choices=["digit", "gelsight", "duragel"], default="digit")
     ap.add_argument("--max-samples", type=int, default=None)
     ap.add_argument("--per-object-max", type=int, default=None)
     ap.add_argument("--k", type=int, default=10)
-    ap.add_argument("--n-perms", type=int, default=50)
+    ap.add_argument("--n-perms", type=int, default=100)
     ap.add_argument("--output-dir", default="experiments/fig1_tacquad")
     ap.add_argument("--encoders", nargs="+", default=None)
     args = ap.parse_args()

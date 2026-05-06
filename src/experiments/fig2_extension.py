@@ -1,4 +1,4 @@
-"""Fig 3 (Scale curve) extension — 14 new vision×touch encoder combos.
+"""Fig. 2 (Scale curve) extension — 14 new vision×touch encoder combos.
 
 Existing fig2_full (Sparsh-DINO/IJEPA × DINOv2-S/B/L = 6 combos × 4 fractions
 × 3 metrics = 72 rows) covers only the original encoder pool. This extension
