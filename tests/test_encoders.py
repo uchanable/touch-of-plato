@@ -1,8 +1,9 @@
 """Smoke tests for encoder loaders (Paper Table 1).
 
-Verifies each loader returns Tensor(1, feature_dim) on a dummy input.
-All 8 loaders (Paper Table 1 rows 1-6, with rows 2 and 3 providing both
-vision and text sides) are expected to work as of initial setup.
+Verifies each of the 12 frozen encoder loaders returns Tensor(1, d) on
+a dummy input. Coverage: 5 vision (DINOv2-S/B/L, CLIP-L vision,
+SigLIP-B vision), 3 language (CLIP-L text, SigLIP-B text, mpnet),
+4 tactile (Sparsh-DINO, Sparsh-IJEPA, AnyTouch, TVL-ViT-B).
 """
 import gc
 import pytest
@@ -31,6 +32,8 @@ ALL_ENCODERS = [
     "mpnet",
     "sparsh_dino_base",
     "sparsh_ijepa_base",
+    "anytouch",
+    "tvl_vitb",
 ]
 
 
@@ -52,8 +55,8 @@ def test_encoder_forward_shape(name):
 
 
 def test_list_encoders_count():
-    """Paper Table 1 exposes 8 loader entries (rows 2-3 have v/t, rows 5-6 have 2 Sparsh)."""
-    assert len(list_encoders()) == 10
+    """Paper Table 1 exposes 12 loader entries (5 vision + 3 language + 4 tactile)."""
+    assert len(list_encoders()) == 12
 
 
 def test_sparsh_tactile_input_is_6channel():

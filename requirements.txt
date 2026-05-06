@@ -15,11 +15,16 @@ einops==0.8.2
 
 # --- Deep learning ---
 torch==2.11.0
+torchvision==0.26.0      # used by src/encoders/{tactile,tvl_vitb}.py for image transforms
+torchaudio==2.11.0       # transitively required by platonic-rep's metrics.py
 transformers==5.5.4
 huggingface_hub==1.10.1
 datasets==4.8.4
 accelerate==1.13.0
 lightning==2.6.1
+timm==1.0.26             # used by src/encoders/tvl_vitb.py (vit_base_patch16_224)
+sentencepiece==0.2.1     # used by SigLIP tokenizer (transitive transformers dep)
+protobuf==7.34.1         # used by SigLIP tokenizer (transitive transformers dep)
 
 # --- Image / dataset handling ---
 pillow==12.2.0

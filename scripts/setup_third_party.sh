@@ -24,6 +24,11 @@ if [ ! -d correcting_CKA_alignment ]; then
     git clone https://github.com/Alxmrphi/correcting_CKA_alignment.git
 fi
 
+# Sparsh (Higuera et al., CoRL 2024) — used by src/encoders/tactile.py
+if [ ! -d sparsh ]; then
+    git clone https://github.com/facebookresearch/sparsh.git
+fi
+
 cd ..
 
 # Add top-level script files of platonic-rep to PYTHONPATH via .pth

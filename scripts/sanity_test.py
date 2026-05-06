@@ -36,7 +36,7 @@ def extract_features(enc, samples, side: str) -> np.ndarray:
     out = []
     with torch.no_grad():
         for s in samples:
-            img = s.load_vision() if side == "vision" else s.load_tactile()
+            img = s[side]   # TVLDataset.__getitem__ returns {"vision": PIL, "tactile": PIL, ...}
             x = enc.preprocess(img)
             f = enc.model(x)
             out.append(f.detach().cpu().numpy().reshape(-1))
