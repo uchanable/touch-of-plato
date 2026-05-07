@@ -1,6 +1,6 @@
 """Null-calibrated alignment (Eq. 3 of the paper).
 
-Implements Section 3.2 (M3) of the paper:
+Implements §``sec:metrics`` (M3):
 
     A_null(Z_X, Z_Y) = (A_raw(Z_X, Z_Y) - mu_null) / sigma_null
 

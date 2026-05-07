@@ -1,5 +1,8 @@
-"""Layer-wise probe extension: add AnyTouch + tvl_vitb to the existing 8-encoder
-Layer-wise probe nullcal pool.
+"""Layer-wise probe extension: add AnyTouch + tvl_vitb to the existing
+8-encoder Layer-wise probe nullcal pool.
+
+Paper binding: extends Fig.~``fig:fig3`` / §``sec:layerwise`` with the
+two cross-architecture tactile encoders. Appendix Tab.~``tab:layerwise-extended``.
 
 Existing run: 8 encoder × 22 pair × 4 quartile = 88 cell (Sparsh-DINO/IJEPA,
 DINOv2-S/B/L, CLIP-L vision, SigLIP-Base vision, ResNet-50 control).

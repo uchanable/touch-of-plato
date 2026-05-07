@@ -1,11 +1,14 @@
-"""Sparsh 6-channel sensitivity analysis (Limitation L1).
+"""Sparsh 6-channel sensitivity analysis (Mode A vs Mode B).
+
+Paper binding: appendix §``sec:sparsh-sensitivity``,
+Tab.~``tab:sparsh-mode-b`` (alignment delta under the temporal-stride
+input). Addresses §``sec:limitations`` caveat (i) (shared optical
+pathway / Sparsh-native input format).
 
 Tests whether our same-frame duplication choice (Mode A: I_t || I_t) for
 Sparsh's 6-channel input is empirically equivalent to the temporal stride
 that Sparsh was natively trained with (Mode B: I_t || I_{t-k}, k=5
-frames ≈ 80 ms).
-
-Protocol: see paper Appendix (Sparsh Mode A vs B sensitivity).
+frames ~ 80 ms).
 
 Outputs (under --output-dir, default experiments/sparsh_mode_sensitivity):
     pairs_index.csv      — sample_id, run_dir, t_frame, t5_frame, vision_frame, frame_idx

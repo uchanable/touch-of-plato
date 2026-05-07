@@ -1,4 +1,10 @@
-"""Fig. 2 (Scale curve) extension — 14 new vision×touch encoder combos.
+"""Scale curve extension — 14 new vision×touch encoder combos.
+
+Paper binding: extends Fig.~``fig:fig2`` to AnyTouch and TVL-ViT-B.
+Appendix §``sec:fig2-extended``, Tab.~``tab:fig2-extended-mknn``,
+Tab.~``tab:fig2-extended-dcka``, with the rendered figure at
+``fig:fig2-extended``.
+
 
 Existing scale_curve_full (Sparsh-DINO/IJEPA × DINOv2-S/B/L = 6 combos × 4 fractions
 × 3 metrics = 72 rows) covers only the original encoder pool. This extension

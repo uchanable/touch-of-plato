@@ -1,6 +1,9 @@
-"""Fig. 1 alignment matrix replicated on TacQuad (cross-dataset).
+"""Alignment matrix replicated on TacQuad (cross-dataset).
 
-Paper binding: cross-dataset replication of the T-V > V-L pattern outside TVL.
+Paper binding: cross-dataset replication of the T-V > V-L pattern
+outside TVL — discussion in §``sec:disc-caption``. Re-uses the
+methodology of Fig.~``fig:fig1`` (alignment matrix) with the dataset
+swapped from TVL to TacQuad / AnyTouch ICLR 2025.
 
 Goal: Reproduce the T-V > V-L pattern observed on TVL using a different
 vision-touch-language dataset (TacQuad / AnyTouch ICLR 2025). If T-V mutual-kNN

@@ -1,9 +1,11 @@
 """Pairwise alignment: TVL standalone tactile encoder x {11 other encoders}.
 
-Headline test for "observe (frozen) vs enforce (cross-modal trained)" —
-the 12th encoder (TVL ViT-Base, trained on TVL with contrastive
-alignment to CLIP latent space) goes against all 11 baseline encoders
-(10 original + AnyTouch).
+Paper binding: extends Fig.~``fig:fig1`` with the trained tactile encoder
+(TVL-ViT-B). Headline test for "observe (frozen) vs enforce (cross-modal
+trained)" — the 12th encoder (TVL ViT-Base, trained on TVL with
+contrastive alignment to CLIP latent space) goes against all 11 baseline
+encoders (10 original + AnyTouch). Training-side numerical breakdown in
+appendix §``sec:limit-detail``.
 
 Inputs:
     --features-dir : directory with `tvl_vitb.npy` AND the 11 partners

@@ -1,8 +1,15 @@
-"""Layer-wise m-kNN probe (paper Fig. 3).
+"""Layer-wise m-kNN probe.
 
-Test alternative hypothesis (b): surface feature convergence.
-If T-V alignment (m-kNN ~ 0.391, full-run) is a low-level effect, it should
-be strongest at shallow transformer blocks (Q1) and decay with depth (Q4).
+Paper binding (LaTeX labels):
+    Fig.~``fig:fig3`` (layer-wise probe);
+    body §``sec:exp-fig3`` (Layer-wise);
+    numerical detail in appendix §``sec:layerwise``
+    (Tab.~``tab:layerwise``, Tab.~``tab:layerwise-z``).
+
+Tests alternative hypothesis (b): surface-feature convergence.
+If T-V alignment (m-kNN ~ 0.391, full-run) is a low-level effect, it
+should be strongest at shallow transformer blocks (Q1) and decay with
+depth (Q4).
 
 Design:
   22 pairs:

@@ -33,7 +33,7 @@ Actual structure (verified during initial dataset prep):
         tactile_background: 0-1702507215.615537/tactile_bg_latent.jpg
         caption: "smooth, reflective, hard, cool, sleek"
 
-Paper binding: Section 3.3 "Encoders and Dataset" of the paper.
+Paper binding: §``sec:encoders`` (Encoders and Dataset).
 """
 from __future__ import annotations
 from dataclasses import dataclass
@@ -67,7 +67,7 @@ class TVLItem:
 class TVLDataset(Dataset):
     """TVL vision-touch-text triple loader.
 
-    Implements Section 3.3 ("Encoders and Dataset") of the paper.
+    Implements §``sec:encoders`` (Encoders and Dataset).
 
     Args:
         root: Path to the `data/tvl` directory. Must contain `tvl_dataset/`

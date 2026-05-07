@@ -18,6 +18,6 @@ Cross-checks and tables:
 - wit_anchor.py                -> Appendix WIT-1024 cross-dataset replication
 - tacquad_replication.py              -> Appendix TacQuad cross-dataset replication
 - sparsh_mode_sensitivity.py        -> Appendix Sparsh Mode A vs Mode B sensitivity
-- encoders_table.py             -> Table 1 (encoder registry, auto-generated LaTeX)
+- encoders_table.py             -> Tab.~``tab:encoders`` (encoder registry, auto-generated LaTeX)
 - metric_consistency.py   -> Table 2 (metric rank correlation)
 """

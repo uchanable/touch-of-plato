@@ -1,7 +1,8 @@
-"""WIT-1024 cross-dataset anchor replication (paper Appendix).
+"""WIT-1024 cross-dataset anchor replication.
 
-Reproduce Huh et al. (ICML 2024) V-L mutual-kNN on the same 1024-pair WIT subset
-that Huh used (HuggingFace `minhuh/prh @ wit_1024` branch).
+Paper binding: WIT cross-check discussion in §``sec:disc-caption``.
+Reproduces Huh et al. (ICML 2024) V-L mutual-kNN on the same 1024-pair
+WIT subset Huh used (HuggingFace ``minhuh/prh @ wit_1024`` branch).
 
 If this pipeline reproduces Huh's V-L ~0.16-0.22 range, then our TVL V-L = 0.027
 cannot be a code bug — it must be a TVL domain effect (caption brevity, narrow
@@ -102,7 +103,7 @@ def main() -> None:
         encoder_ids = args.encoders
     else:
         # WIT-1024 has no tactile pairs, so we run vision + language encoders
-        # only. Tactile encoders are listed explicitly (matches Table 1).
+        # only. Tactile encoders are listed explicitly (matches Tab.~``tab:encoders``).
         TACTILE = {"sparsh_dino_base", "sparsh_ijepa_base", "anytouch", "tvl_vitb"}
         encoder_ids = [e for e in list_encoders() if e not in TACTILE]
     print(f"[2/4] Encoders: {encoder_ids}")

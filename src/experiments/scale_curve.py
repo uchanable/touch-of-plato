@@ -1,6 +1,10 @@
-"""Figure 2: Scale curve of touch-vision alignment on TVL.
+"""Scale curve of touch-vision alignment on TVL.
 
-Paper binding: Section 3.4 of the paper (RO2).
+Paper binding (LaTeX labels):
+    Fig.~``fig:fig2`` (scale curve);
+    body §``sec:exp-fig2`` (Scale curve, RO2);
+    numerical detail in appendix §``sec:fig2-numerical``
+    (Tab.~``tab:fig2-mknn``, Tab.~``tab:fig2-dcka``).
 
 Protocol:
     - Vision-size axis: DINOv2-{Small, Base, Large}  (reference vision encoder;

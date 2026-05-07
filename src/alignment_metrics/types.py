@@ -1,6 +1,6 @@
 """Type aliases for alignment metric inputs.
 
-Corresponds to Section 3.1 "Preliminaries" of the paper.
+Corresponds to §``sec:prelim`` (Preliminaries) of the paper.
 """
 from __future__ import annotations
 from typing import Union

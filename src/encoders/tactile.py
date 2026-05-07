@@ -1,4 +1,4 @@
-"""Tactile encoders (Paper Table 1 rows: tactile).
+"""Tactile encoders (Paper Tab.~``tab:encoders`` rows: tactile).
 
 Sparsh checkpoints from facebook/sparsh-{dino,ijepa}-base.
 
@@ -102,7 +102,7 @@ def _load_sparsh_vit(safetensors_path: Path) -> nn.Module:
 
 
 def load_sparsh_dino_base() -> LoadedEncoder:
-    """Paper Table 1 row 5: Sparsh-DINO-Base (facebook/sparsh-dino-base). d=768."""
+    """Paper Tab.~``tab:encoders`` row 5: Sparsh-DINO-Base (facebook/sparsh-dino-base). d=768."""
     path = Path(f"{CKPT_ROOT}/facebook__sparsh-dino-base/dino_vitbase.safetensors")
     model = _load_sparsh_vit(path)
     return LoadedEncoder(
@@ -115,7 +115,7 @@ def load_sparsh_dino_base() -> LoadedEncoder:
 
 
 def load_sparsh_ijepa_base() -> LoadedEncoder:
-    """Paper Table 1 row 6: Sparsh-IJEPA-Base (facebook/sparsh-ijepa-base). d=768."""
+    """Paper Tab.~``tab:encoders`` row 6: Sparsh-IJEPA-Base (facebook/sparsh-ijepa-base). d=768."""
     path = Path(f"{CKPT_ROOT}/facebook__sparsh-ijepa-base/ijepa_vitbase.safetensors")
     model = _load_sparsh_vit(path)
     return LoadedEncoder(

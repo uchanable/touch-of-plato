@@ -1,4 +1,4 @@
-"""Vision encoders (Paper Table 1 rows: vision tower).
+"""Vision encoders (Paper Tab.~``tab:encoders`` rows: vision tower).
 
 Each loader returns a `LoadedEncoder` whose `model.forward(pixel_values)`
 yields `Tensor[B, 768]`.
@@ -52,7 +52,7 @@ class _SigLIPVisionWrapper(nn.Module):
 
 
 def load_dinov2_base() -> LoadedEncoder:
-    """Paper Table 1 row 1: DINOv2-Base (facebook/dinov2-base).
+    """Paper Tab.~``tab:encoders`` row 1: DINOv2-Base (facebook/dinov2-base).
 
     Feature: CLS token of last hidden layer, d=768.
     """
@@ -74,7 +74,7 @@ def load_dinov2_base() -> LoadedEncoder:
 
 
 def load_clip_l_vision() -> LoadedEncoder:
-    """Paper Table 1 row 2 (vision side): CLIP ViT-L/14.
+    """Paper Tab.~``tab:encoders`` row 2 (vision side): CLIP ViT-L/14.
 
     Feature: `.pooler_output` from `get_image_features()`, d=768.
     """
@@ -96,7 +96,7 @@ def load_clip_l_vision() -> LoadedEncoder:
 
 
 def load_siglip_base_vision() -> LoadedEncoder:
-    """Paper Table 1 row 3 (vision side): SigLIP-Base/16-224.
+    """Paper Tab.~``tab:encoders`` row 3 (vision side): SigLIP-Base/16-224.
 
     Feature: `.pooler_output` from `get_image_features()`, d=768.
     """
@@ -119,9 +119,9 @@ def load_siglip_base_vision() -> LoadedEncoder:
 
 
 def load_dinov2_small() -> LoadedEncoder:
-    """Paper Table 1 Fig. 2 reference: DINOv2-Small (facebook/dinov2-small).
+    """Paper Tab.~``tab:encoders`` Fig. 2 reference: DINOv2-Small (facebook/dinov2-small).
 
-    Used by Section 3.4 Scale curve as the small vision-size reference point.
+    Used by §``sec:exp-fig2`` (scale curve) as the small vision-size reference point.
     Feature: CLS token of last hidden layer, d=384.
     """
     from transformers import AutoModel, AutoImageProcessor
@@ -142,9 +142,9 @@ def load_dinov2_small() -> LoadedEncoder:
 
 
 def load_dinov2_large() -> LoadedEncoder:
-    """Paper Table 1 Fig. 2 reference: DINOv2-Large (facebook/dinov2-large).
+    """Paper Tab.~``tab:encoders`` Fig. 2 reference: DINOv2-Large (facebook/dinov2-large).
 
-    Used by Section 3.4 Scale curve as the large vision-size reference point.
+    Used by §``sec:exp-fig2`` (scale curve) as the large vision-size reference point.
     Feature: CLS token of last hidden layer, d=1024.
     """
     from transformers import AutoModel, AutoImageProcessor

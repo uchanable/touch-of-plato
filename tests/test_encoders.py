@@ -1,4 +1,4 @@
-"""Smoke tests for encoder loaders (Paper Table 1).
+"""Smoke tests for encoder loaders (Paper Tab.~``tab:encoders``).
 
 Verifies each of the 12 frozen encoder loaders returns Tensor(1, d) on
 a dummy input. Coverage: 5 vision (DINOv2-S/B/L, CLIP-L vision,
@@ -55,7 +55,7 @@ def test_encoder_forward_shape(name):
 
 
 def test_list_encoders_count():
-    """Paper Table 1 exposes 12 loader entries (5 vision + 3 language + 4 tactile)."""
+    """Paper Tab.~``tab:encoders`` exposes 12 loader entries (5 vision + 3 language + 4 tactile)."""
     assert len(list_encoders()) == 12
 
 

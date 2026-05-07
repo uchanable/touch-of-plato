@@ -1,4 +1,4 @@
-"""Encoder loader registry for Table 1 of the paper.
+"""Encoder loader registry for Tab.~``tab:encoders``.
 
 Public API:
     from src.encoders import get_encoder, list_encoders
@@ -6,7 +6,7 @@ Public API:
     enc = get_encoder("dinov2_base")
     tensor_out = enc.model(enc.preprocess(pil_image))  # (1, 768)
 
-See paper §3.3 (Table 1) for the paper-side binding of each loader.
+See paper §``sec:encoders`` (registry; Tab.~``tab:encoders``).
 """
 from __future__ import annotations
 from typing import Callable, Dict
@@ -40,7 +40,7 @@ _REGISTRY: Dict[str, Callable[[], LoadedEncoder]] = {
 
 
 def get_encoder(name: str) -> LoadedEncoder:
-    """String-dispatched encoder loader keyed by paper Table 1 rows."""
+    """String-dispatched encoder loader keyed by paper Tab.~``tab:encoders`` rows."""
     if name not in _REGISTRY:
         raise ValueError(
             f"Unknown encoder '{name}'. Available: {sorted(_REGISTRY)}"

@@ -54,7 +54,7 @@ matrix, see [`REPRODUCE.md`](./REPRODUCE.md).
 ```
 src/
   alignment_metrics/   # M1 mutual-kNN, M2 dCKA, M3 null-cal z, M4 uCKA
-  encoders/            # 12 frozen encoder loaders (Table 1)
+  encoders/            # 12 frozen encoder loaders (Tab.~``tab:encoders``)
   datasets/            # TVL + TacQuad
   experiments/         # Per-experiment runners (alignment_matrix, scale_curve, layerwise_probe,
                        #   attribute_alignment, tacquad_replication, wit_anchor,
@@ -65,7 +65,7 @@ scripts/
   download_checkpoints.py
   setup_third_party.sh
 configs/
-  encoders.yaml        # Table 1 registry (HF id, d, modality, loader path)
+  encoders.yaml        # Tab.~``tab:encoders`` registry (HF id, d, modality, loader path)
   hyperparams.yaml     # k=10, B=100, seed=0, ...
 data/
   results/             # 13 per-pair CSVs + ground_truth.json

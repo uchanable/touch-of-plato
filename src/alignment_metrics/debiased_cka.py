@@ -1,6 +1,6 @@
 """Debiased Centered Kernel Alignment (Eq. 2 of the paper).
 
-Implements Section 3.2 (M2) of the paper:
+Implements §``sec:metrics`` (M2):
 
     A_dCKA(Z_X, Z_Y) = HSIC_d(K_X, K_Y) / sqrt(HSIC_d(K_X, K_X) * HSIC_d(K_Y, K_Y))
 

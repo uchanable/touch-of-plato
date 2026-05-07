@@ -1,8 +1,10 @@
-"""Table 2: Metric consistency across encoder pairs.
+"""Metric consistency across encoder pairs (Spearman rank).
 
-Paper binding: Table 2 entry + §3.2 claim that the
-four metrics (mutual-kNN, debiased CKA, null-calibrated z, unbiased CKA)
-produce consistent rankings of encoder pairs.
+Paper binding (LaTeX labels):
+    Tab.~``tab:metric-consistency``;
+    body §``sec:metrics`` claim that the four metrics (mutual-kNN,
+    debiased CKA, null-calibrated z, unbiased CKA) produce consistent
+    rankings of encoder pairs.
 
 Input:
     experiments/alignment_matrix_*/results.csv  (from alignment_matrix.py)

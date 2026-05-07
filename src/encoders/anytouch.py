@@ -1,4 +1,4 @@
-"""AnyTouch encoder loader (Paper Table 1 row: tactile, AnyTouch).
+"""AnyTouch encoder loader (Paper Tab.~``tab:encoders`` row: tactile, AnyTouch).
 
 Reference:
     Feng et al., "AnyTouch: Learning Unified Static-Dynamic Representation
@@ -124,7 +124,7 @@ def _build_anytouch_preprocess():
 # Loader
 # ---------------------------------------------------------------------------
 def load_anytouch() -> LoadedEncoder:
-    """Paper Table 1 row: AnyTouch (Feng et al., ICLR 2025). d=1024."""
+    """Paper Tab.~``tab:encoders`` row: AnyTouch (Feng et al., ICLR 2025). d=1024."""
     from transformers import CLIPVisionConfig, CLIPVisionModel
 
     ckpt_path = Path(f"{CKPT_ROOT}/anytouch/checkpoint.pth")

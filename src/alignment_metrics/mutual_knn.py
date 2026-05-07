@@ -1,6 +1,6 @@
 """Mutual k-Nearest Neighbor alignment (Eq. 1 of the paper).
 
-Implements Section 3.2 (M1) of the paper:
+Implements §``sec:metrics`` (M1):
 
     A_kNN(Z_X, Z_Y; k) = (1/N) * sum_i |N_k^X(i) ∩ N_k^Y(i)| / k
 

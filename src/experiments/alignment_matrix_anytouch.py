@@ -1,8 +1,10 @@
-"""Pairwise alignment: AnyTouch x {10 other Table 1 encoders}.
+"""Pairwise alignment: AnyTouch x {10 baseline encoders from Tab.~``tab:encoders``}.
 
-Headline robustness check for §5.7 limitation (ii) of the paper: does the
-existing tactile-encoder result reproduce when we swap in AnyTouch (a
-sensor-conditioned tactile foundation model with a different backbone)?
+Paper binding: extends Fig.~``fig:fig1`` with the AnyTouch encoder.
+Cross-architecture robustness check addressing §``sec:limitations``
+caveat (ii) (whether the tactile-encoder result reproduces under a
+sensor-conditioned ViT-L/14 backbone with LoRA adapters, distinct
+from the Sparsh DINO/IJEPA family).
 
 Inputs:
     --features-dir : directory with all encoder .npy files (each (N, d_i)),

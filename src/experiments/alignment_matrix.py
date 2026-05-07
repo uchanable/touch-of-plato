@@ -1,9 +1,12 @@
-"""Figure 1: Pairwise alignment matrix on TVL.
+"""Pairwise alignment matrix on TVL — the main alignment-matrix heatmap.
 
-Paper binding: Section 3.3 / Fig. 1 of the paper.
+Paper binding (LaTeX labels, robust to figure renumbering):
+    Fig.~``fig:fig1`` (alignment matrix);
+    body §``sec:exp-fig1`` (Pairwise alignment);
+    block-level appendix Tab.~``tab:fig1-blocks``.
 
 Protocol:
-    1. Load selected encoders from Table 1.
+    1. Load selected encoders from Tab.~``tab:encoders``.
     2. Build a TVLDataset with the requested subset and max_samples.
     3. For each encoder, extract features over the whole dataset using
        the view that matches its modality:

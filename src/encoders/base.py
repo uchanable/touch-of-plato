@@ -1,4 +1,4 @@
-"""Encoder abstractions for Table 1 of the paper.
+"""Encoder abstractions for Tab.~``tab:encoders``.
 
 Each `load_*` function in this package returns a `LoadedEncoder`
 tuple, giving the experiment runners a uniform interface:
@@ -7,7 +7,7 @@ tuple, giving the experiment runners a uniform interface:
 
 where `model(preprocess(raw_input)) -> Tensor[B, feature_dim]`.
 
-See paper §3.3 (Table 1) for the binding of each loader to a paper row.
+See §``sec:encoders`` for the loader-row binding (Tab.~``tab:encoders``).
 """
 from __future__ import annotations
 import os

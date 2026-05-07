@@ -1,6 +1,10 @@
-"""Figure 4: Attribute-level alignment analysis on TVL.
+"""Attribute-level alignment analysis on TVL.
 
-Paper binding: Section 3.6 of the paper (RO4).
+Paper binding (LaTeX labels):
+    Fig.~``fig:fig4`` (attribute analysis);
+    appendix §``sec:fig4-numerical``
+    (Tab.~``tab:fig4-mknn``, Tab.~``tab:fig4-dcka``);
+    caption-lexicon detail in §``sec:tvl-lexicon``.
 
 Protocol:
     1. Parse TVL captions into attribute tags using a small hand-curated

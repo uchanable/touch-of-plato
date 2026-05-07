@@ -1,4 +1,4 @@
-"""TVL standalone tactile encoder (Paper Table 1 row #12).
+"""TVL standalone tactile encoder (Paper Tab.~``tab:encoders`` row #12).
 
 This is the *trained tactile encoder* released alongside TVL-LLaMA
 (Fu et al., ICML 2024, "A Touch, Vision, and Language Dataset for
@@ -91,7 +91,7 @@ def _build_tvl_vitb_preprocess():
 
 
 def load_tvl_vitb() -> LoadedEncoder:
-    """Paper Table 1 row #12: TVL standalone tactile encoder (Fu et al., ICML 2024).
+    """Paper Tab.~``tab:encoders`` row #12: TVL standalone tactile encoder (Fu et al., ICML 2024).
 
     Loads ``ckpt/tvl_enc/tvl_enc_vitb.pth`` into a timm
     ``vit_base_patch16_224`` with ``num_classes=768, global_pool="avg"``.

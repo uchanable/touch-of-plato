@@ -1,4 +1,4 @@
-"""Language encoders (Paper Table 1 rows: text tower).
+"""Language encoders (Paper Tab.~``tab:encoders`` rows: text tower).
 
 Each loader returns a `LoadedEncoder` whose `model.forward(batch)` yields
 `Tensor[B, 768]`.
@@ -48,7 +48,7 @@ class _MeanPoolWrapper(nn.Module):
 
 
 def load_clip_l_text() -> LoadedEncoder:
-    """Paper Table 1 row 2 (language side): CLIP ViT-L/14 text tower. d=768."""
+    """Paper Tab.~``tab:encoders`` row 2 (language side): CLIP ViT-L/14 text tower. d=768."""
     from transformers import CLIPModel, CLIPTokenizer
     path = f"{CKPT_ROOT}/openai__clip-vit-large-patch14"
     clip = CLIPModel.from_pretrained(path).eval()
@@ -69,7 +69,7 @@ def load_clip_l_text() -> LoadedEncoder:
 
 
 def load_siglip_base_text() -> LoadedEncoder:
-    """Paper Table 1 row 3 (language side): SigLIP-Base/16 text tower. d=768."""
+    """Paper Tab.~``tab:encoders`` row 3 (language side): SigLIP-Base/16 text tower. d=768."""
     from transformers import SiglipModel, SiglipTokenizer
     path = f"{CKPT_ROOT}/google__siglip-base-patch16-224"
     siglip = SiglipModel.from_pretrained(path).eval()
@@ -90,7 +90,7 @@ def load_siglip_base_text() -> LoadedEncoder:
 
 
 def load_mpnet() -> LoadedEncoder:
-    """Paper Table 1 row 4: sentence-transformers/all-mpnet-base-v2. d=768.
+    """Paper Tab.~``tab:encoders`` row 4: sentence-transformers/all-mpnet-base-v2. d=768.
 
     Attention-masked mean-pooled sentence embedding.
     """

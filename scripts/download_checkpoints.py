@@ -3,7 +3,7 @@
 Downloads to checkpoints/ (gitignored). Run after `pip install -r
 requirements.txt` and `bash scripts/setup_third_party.sh` complete.
 
-Coverage (Paper Table 1):
+Coverage (Paper Tab.~``tab:encoders``):
     HuggingFace snapshots:
         - facebook/dinov2-{small,base,large}        (vision)
         - openai/clip-vit-large-patch14             (vision + text)
