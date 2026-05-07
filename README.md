@@ -74,9 +74,10 @@ tests/                 # pytest sanity tests for metrics + encoders
 
 ## Hardware note
 
-The released CSVs were produced on a Mac Studio (Apple Silicon M2
-Ultra). For the camera-ready version, the same pipeline will be
-re-run on cloud GPUs (RunPod L4) and the CSVs will be regenerated.
+The released CSVs were produced on a Mac Studio (Apple Silicon M1
+Max, 10-core CPU / 32-core GPU, 64 GB unified memory). For the
+camera-ready version, the same pipeline will be re-run on cloud GPUs
+(RunPod L4) and the CSVs will be regenerated.
 Anyone reproducing this work on a CUDA box should expect identical
 results up to floating-point determinism.
 

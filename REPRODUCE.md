@@ -3,10 +3,10 @@
 This document covers everything needed to regenerate
 `data/results/*.csv` and `data/results/ground_truth.json` from
 scratch. Released CSVs were produced on a Mac Studio (Apple Silicon
-M2 Ultra, 64 GB unified memory). Wall-clock numbers below are
-order-of-magnitude on that hardware; a single L4 / A100 should be
-faster than the 32-bit Apple-Silicon baseline for everything except
-the I/O-bound dataset scan.
+M1 Max, 10-core CPU / 32-core GPU, 64 GB unified memory). Wall-clock
+numbers below are order-of-magnitude on that hardware; a single L4 /
+A100 should be faster than the Apple-Silicon baseline for everything
+except the I/O-bound dataset scan.
 
 ## 0. Set up the environment (~10 min, one time)
 
